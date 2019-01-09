@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="divider">1px</dimen>
+    <dimen name="picker_view_height">160dp</dimen>
+    <dimen name="Z22">22sp</dimen>
+    <dimen name="Z20">20sp</dimen>
+    <dimen name="Z18">18sp</dimen>
+    <dimen name="Z16">16sp</dimen>
+    <dimen name="Z14">14sp</dimen>
+    <dimen name="Z12">12sp</dimen>
+</resources>

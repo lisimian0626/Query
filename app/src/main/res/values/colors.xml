@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="black_overlay">#66000000</color>
+    <color name="color_blue">#4582C9</color>
+    <color name="transparent">#00000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="divider_line">#E5E5E5</color>
+
+    <color name="color_text1">#333</color>
+    <color name="color_text2">#666</color>
+    <color name="color_text3">#999</color>
+    <color name="date_picker_divider">#11112233</color>
+
+    <color name="date_picker_text_light">#59B29C</color>
+</resources>
