@@ -1,25 +1,22 @@
 package com.beidousat.querydata.http;
 
+import com.beidousat.querydata.model.Station;
+
+import java.util.Map;
+
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.HeaderMap;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Streaming;
 import retrofit2.http.Url;
 
 
 public interface ApiService {
-    @Streaming
-    @GET("/")
-    Observable<ResponseBody> download(@Url String url);
 
-    @GET("/getHeartBreak/{json}")
-    Observable<ResponseBody> heartbeat(@Path("json") String json);
-
-    @GET("/getPlan/{json}")
-    Observable<ResponseBody> getPlan(@Path("json") String json);
-
-    @GET("/getPlaylist/{json}")
-    Observable<ResponseBody> getPlaylist(@Path("json") String json);
-
+    @POST("/wxjfeng/gasappPort")
+    Observable<Station> getStations(@HeaderMap Map<String,String> headerMap, @Body String body);
 }

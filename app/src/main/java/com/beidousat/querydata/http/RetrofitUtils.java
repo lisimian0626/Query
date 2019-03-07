@@ -43,7 +43,7 @@ public class RetrofitUtils {
 
         mRetrofit = new Retrofit.Builder()
                 .client(client)//添加一个client,不然retrofit会自己默认添加一个
-                .baseUrl(Constant.BASE_URL)
+                .baseUrl(Constant.baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
@@ -65,7 +65,7 @@ public class RetrofitUtils {
 
         mRetrofit = new Retrofit.Builder()
                 .client(client)//添加一个client,不然retrofit会自己默认添加一个
-                .baseUrl(Constant.BASE_URL)
+                .baseUrl(Constant.baseUrl)
                 .addConverterFactory(convertFactory)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();

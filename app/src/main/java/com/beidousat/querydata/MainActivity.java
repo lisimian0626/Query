@@ -27,8 +27,11 @@ import com.beidousat.querydata.fragment.RechargeFragment;
 import com.beidousat.querydata.utils.datepicker.CustomDatePicker;
 import com.beidousat.querydata.utils.datepicker.DateFormatUtils;
 import com.beidousat.querydata.widget.TablayoutHelper;
+import com.beidousat.task.GetDataTask;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener{
@@ -142,6 +145,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 //        String mString = menuItem.getItemId().;
         mToolbar.setTitle(title);
         mDrawerLayout.closeDrawer(GravityCompat.START);
+        Map<String,Object> map=new HashMap<>();
+        map.put("arg0","SKThd2019");
+        GetDataTask getDataTask=new GetDataTask(map);
+        getDataTask.execute();
         return true;
     }
 

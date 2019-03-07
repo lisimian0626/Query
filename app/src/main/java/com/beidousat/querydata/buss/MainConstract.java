@@ -4,6 +4,9 @@ package com.beidousat.querydata.buss;
 
 import com.beidousat.querydata.base.BasePresenter;
 import com.beidousat.querydata.base.BaseView;
+import com.beidousat.querydata.model.Station;
+
+import java.util.List;
 
 import okhttp3.ResponseBody;
 
@@ -16,8 +19,9 @@ public interface MainConstract {
     interface MainView extends BaseView {
         void OnRequestData();
     }
+
     interface MainPresenter extends BasePresenter {
-        void requestData();
+        void getStationList(String key);
 
     }
 
