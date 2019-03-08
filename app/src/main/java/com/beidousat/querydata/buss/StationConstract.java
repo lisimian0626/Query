@@ -15,12 +15,12 @@ import okhttp3.ResponseBody;
  * date:   2016/8/31
  * describe:
  */
-public interface MainConstract {
-    interface MainView extends BaseView {
-        void OnRequestData();
+public interface StationConstract {
+    interface View extends BaseView {
+        void OnRequestData(Station station);
     }
 
-    interface MainPresenter extends BasePresenter {
+    interface StationPresenter extends BasePresenter {
         void getStationList(String key);
 
     }

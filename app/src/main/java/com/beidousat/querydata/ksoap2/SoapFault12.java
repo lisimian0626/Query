@@ -21,7 +21,7 @@
 
 package com.beidousat.querydata.ksoap2;
 
-import com.mr_sun.logindemo.kxml2.kdom.Node;
+import com.beidousat.querydata.kxml2.kdom.Node;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;

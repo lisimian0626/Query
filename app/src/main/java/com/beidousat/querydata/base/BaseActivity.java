@@ -1,10 +1,13 @@
 package com.beidousat.querydata.base;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+
+import com.beidousat.querydata.R;
 
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -12,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 public abstract class BaseActivity extends AppCompatActivity {
     private String Tag = "BaseActivity";
     private ScheduledExecutorService mScheduledExecutorService;
-
+    protected Dialog mProgressDlg;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +62,18 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     }
 
+    public void showNormalDialog(String string) {
+        mProgressDlg = MyPorgressDialog.createLoadingDialog(this,string);
+        mProgressDlg.setCancelable(true);
+        mProgressDlg.show();
+
+    }
+
+    public void closeNormalDialog() {
+        if (mProgressDlg != null) {
+            mProgressDlg.dismiss();
+        }
+    }
     protected void startScreenTimer() {
         if (mScheduledExecutorService != null && !mScheduledExecutorService.isShutdown())
             return;

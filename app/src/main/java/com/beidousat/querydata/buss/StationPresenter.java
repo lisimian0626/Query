@@ -16,12 +16,11 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import okhttp3.ResponseBody;
 
-public class MainPresenter extends CommonPresenter<MainConstract.MainView> implements MainConstract.MainPresenter{
+public class StationPresenter extends CommonPresenter<StationConstract.View> implements StationConstract.StationPresenter {
     private Map<String,String> soapHeaderMap;
     private String mBody;
-    public MainPresenter(MainConstract.MainView view) {
+    public StationPresenter(StationConstract.View view) {
         super(view);
     }
 
@@ -41,11 +40,12 @@ public class MainPresenter extends CommonPresenter<MainConstract.MainView> imple
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
-                        mView.showLoading("");
+                        mView.showLoading("正在加载中，请稍等...");
                     }
                 }).subscribe(new Consumer<Station>() {
                     @Override
                     public void accept(Station station) throws Exception {
+                        mView.OnRequestData(station);
                         mView.hideLoading();
                     }
                 }, new AbsExceptionEngine() {

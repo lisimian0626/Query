@@ -3,6 +3,7 @@ package com.beidousat.querydata.base;
 
 import com.beidousat.querydata.http.ApiService;
 import com.beidousat.querydata.http.RetrofitUtils;
+import com.beidousat.querydata.ksoap2.converter.SoapConverterFactory;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -21,7 +22,7 @@ public abstract class CommonPresenter<T> implements BasePresenter {
     public CommonPresenter(T view) {
         mView = view;
         mCompositeDisposable = new CompositeDisposable();
-        mApiService= RetrofitUtils.newInstence().create(ApiService.class);
+        mApiService= RetrofitUtils.newInstence(SoapConverterFactory.create()).create(ApiService.class);
     }
 
     @Override

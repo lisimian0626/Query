@@ -11,7 +11,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,22 +18,21 @@ import android.widget.TextView;
 
 import com.beidousat.querydata.adapter.MyAdapter;
 import com.beidousat.querydata.base.BaseActivity;
+import com.beidousat.querydata.buss.StationConstract;
+import com.beidousat.querydata.buss.StationPresenter;
 import com.beidousat.querydata.fragment.CashFragment;
 import com.beidousat.querydata.fragment.ChangeDutyFragment;
 import com.beidousat.querydata.fragment.GasFragment;
-import com.beidousat.querydata.fragment.PaperFragment;
 import com.beidousat.querydata.fragment.RechargeFragment;
+import com.beidousat.querydata.model.Station;
 import com.beidousat.querydata.utils.datepicker.CustomDatePicker;
 import com.beidousat.querydata.utils.datepicker.DateFormatUtils;
 import com.beidousat.querydata.widget.TablayoutHelper;
-import com.beidousat.task.GetDataTask;
 
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.logging.Logger;
+import java.util.List;
 
-public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener{
+public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, StationConstract.View {
     DrawerLayout mDrawerLayout;
     Toolbar mToolbar;
     NavigationView mNavigationView;
@@ -43,10 +41,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private ActionBarDrawerToggle mDrawerToggle;
 
     private TextView mTvStartTime, mTvEndTime;
-    private CustomDatePicker mStartTimerPicker,mEndTimerPicker;
+    private CustomDatePicker mStartTimerPicker, mEndTimerPicker;
+    private StationPresenter stationPresenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        stationPresenter = new StationPresenter(this);
     }
 
     @Override
@@ -61,22 +62,17 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     public void initViews() {
-        mDrawerLayout=findViewById(R.id.layout_draw);
-        mToolbar=findViewById(R.id.toolbar);
-        mNavigationView=findViewById(R.id.layout_navigation);
+        mDrawerLayout = findViewById(R.id.layout_draw);
+        mToolbar = findViewById(R.id.toolbar);
+        mNavigationView = findViewById(R.id.layout_navigation);
 
 
         mTvStartTime = findViewById(R.id.tv_selected_start_time);
         mTvEndTime = findViewById(R.id.tv_selected_endtime);
-        for(int i=0;i<9;i++){
-            mNavigationView.getMenu().add(i,i,i,"menu"+i);
-        }
 
         vp = findViewById(R.id.vp);
-        tabLayout=findViewById(R.id.tab);
+        tabLayout = findViewById(R.id.tab);
 
-        //设置toolbar标题文本
-        mToolbar.setTitle("首页");
         //设置toolbar
         setSupportActionBar(mToolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -112,7 +108,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         mNavigationView.setNavigationItemSelectedListener(this);
         //实例化适配器
-        MyAdapter adapter=new MyAdapter(getSupportFragmentManager());
+        MyAdapter adapter = new MyAdapter(getSupportFragmentManager());
         adapter.add(RechargeFragment.newInstance(getString(R.string.recharge)));
         adapter.add(ChangeDutyFragment.newInstance(getString(R.string.changeDuty)));
         adapter.add(CashFragment.newInstance(getString(R.string.cash)));
@@ -125,13 +121,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         tabLayout.setupWithViewPager(vp);
         //设置Mode样式
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-        TablayoutHelper.setTabLine(tabLayout,15,15,this);
+        TablayoutHelper.setTabLine(tabLayout, 15, 15, this);
         initTimerPicker();
     }
 
     @Override
     public void loadDataWhenOnResume() {
-
+        stationPresenter.getStationList("SKThd2019");
     }
 
     @Override
@@ -145,16 +141,12 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 //        String mString = menuItem.getItemId().;
         mToolbar.setTitle(title);
         mDrawerLayout.closeDrawer(GravityCompat.START);
-        Map<String,Object> map=new HashMap<>();
-        map.put("arg0","SKThd2019");
-        GetDataTask getDataTask=new GetDataTask(map);
-        getDataTask.execute();
+
         return true;
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -165,15 +157,16 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         }
         return super.onOptionsItemSelected(item);
     }
+
     private void initTabLayout() {
 //        tabLayout.addOnTabSelectedListener(this);
-        TablayoutHelper.setTabLine(tabLayout,15,15,this);
+        TablayoutHelper.setTabLine(tabLayout, 15, 15, this);
         tabLayout.getTabAt(1).select();
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.ll_start_time:
                 // 日期格式为yyyy-MM-dd HH:mm
                 mStartTimerPicker.show(mTvStartTime.getText().toString());
@@ -188,7 +181,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private void initTimerPicker() {
 
         String beginTime = DateFormatUtils.getStartTimeforCurrent(new Date(System.currentTimeMillis()));
-        Log.i("Main","time:"+beginTime);
+        Log.i("Main", "time:" + beginTime);
         String endTime = DateFormatUtils.long2Str(System.currentTimeMillis(), true);
 
         mTvStartTime.setText(endTime);
@@ -226,5 +219,35 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         mEndTimerPicker.setScrollLoop(true);
         // 允许滚动动画
         mEndTimerPicker.setCanShowAnim(true);
+    }
+
+    @Override
+    public void OnRequestData(Station station) {
+        List<Station.RootBean.DataBean> dataBeanList=station.getRoot().getData();
+        if(dataBeanList!=null&&dataBeanList.size()>0){
+            for (int i = 0; i < dataBeanList.size(); i++) {
+                mNavigationView.getMenu().add(i, i, i, dataBeanList.get(i).getStationName());
+            }
+            //设置toolbar标题文本
+            mToolbar.setTitle(dataBeanList.get(0).getStationName());
+        }else{
+            //设置toolbar标题文本
+            mToolbar.setTitle("首页");
+        }
+    }
+
+    @Override
+    public void showLoading(String msg) {
+        showNormalDialog(msg);
+    }
+
+    @Override
+    public void hideLoading() {
+        closeNormalDialog();
+    }
+
+    @Override
+    public void onFeedBack(boolean success, String key, Object data) {
+
     }
 }

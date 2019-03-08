@@ -5,10 +5,6 @@ import android.support.annotation.Nullable;
 
 import com.beidousat.querydata.R;
 import com.beidousat.querydata.base.BaseFragment;
-import com.beidousat.task.GetDataTask;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class RechargeFragment extends BaseFragment{
     private String  title;

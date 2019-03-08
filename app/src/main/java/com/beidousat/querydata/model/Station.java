@@ -10,7 +10,7 @@ import java.util.List;
 public class Station {
 
     /**
-     * root : {"data":[{"row":[{"stationName":["东圃站"]}]}],"response":[{"errcode":["0"]}]}
+     * root : {"data":[{"stationName":"北站站"},{"stationName":"东圃站"}],"response":{"errcode":"0"}}
      */
 
     private RootBean root;
@@ -32,8 +32,13 @@ public class Station {
     }
 
     public static class RootBean {
+        /**
+         * data : [{"stationName":"北站站"},{"stationName":"东圃站"}]
+         * response : {"errcode":"0"}
+         */
+
+        private ResponseBean response;
         private List<DataBean> data;
-        private List<ResponseBean> response;
 
         public static List<RootBean> arrayRootBeanFromData(String str) {
 
@@ -41,6 +46,14 @@ public class Station {
             }.getType();
 
             return new Gson().fromJson(str, listType);
+        }
+
+        public ResponseBean getResponse() {
+            return response;
+        }
+
+        public void setResponse(ResponseBean response) {
+            this.response = response;
         }
 
         public List<DataBean> getData() {
@@ -51,56 +64,12 @@ public class Station {
             this.data = data;
         }
 
-        public List<ResponseBean> getResponse() {
-            return response;
-        }
-
-        public void setResponse(List<ResponseBean> response) {
-            this.response = response;
-        }
-
-        public static class DataBean {
-            private List<RowBean> row;
-
-            public static List<DataBean> arrayDataBeanFromData(String str) {
-
-                Type listType = new TypeToken<ArrayList<DataBean>>() {
-                }.getType();
-
-                return new Gson().fromJson(str, listType);
-            }
-
-            public List<RowBean> getRow() {
-                return row;
-            }
-
-            public void setRow(List<RowBean> row) {
-                this.row = row;
-            }
-
-            public static class RowBean {
-                private List<String> stationName;
-
-                public static List<RowBean> arrayRowBeanFromData(String str) {
-
-                    Type listType = new TypeToken<ArrayList<RowBean>>() {
-                    }.getType();
-
-                    return new Gson().fromJson(str, listType);
-                }
-
-                public List<String> getStationName() {
-                    return stationName;
-                }
-
-                public void setStationName(List<String> stationName) {
-                    this.stationName = stationName;
-                }
-            }
-        }
-
         public static class ResponseBean {
-            private List<String> errcode;
+            /**
+             * errcode : 0
+             */
+
+            private String errcode;
 
             public static List<ResponseBean> arrayResponseBeanFromData(String str) {
 
@@ -110,12 +79,36 @@ public class Station {
                 return new Gson().fromJson(str, listType);
             }
 
-            public List<String> getErrcode() {
+            public String getErrcode() {
                 return errcode;
             }
 
-            public void setErrcode(List<String> errcode) {
+            public void setErrcode(String errcode) {
                 this.errcode = errcode;
+            }
+        }
+
+        public static class DataBean {
+            /**
+             * stationName : 北站站
+             */
+
+            private String stationName;
+
+            public static List<DataBean> arrayDataBeanFromData(String str) {
+
+                Type listType = new TypeToken<ArrayList<DataBean>>() {
+                }.getType();
+
+                return new Gson().fromJson(str, listType);
+            }
+
+            public String getStationName() {
+                return stationName;
+            }
+
+            public void setStationName(String stationName) {
+                this.stationName = stationName;
             }
         }
     }

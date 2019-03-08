@@ -1,5 +1,6 @@
 package com.beidousat.querydata.http;
 
+import com.beidousat.querydata.model.ReCharge;
 import com.beidousat.querydata.model.Station;
 
 import java.util.Map;
@@ -19,4 +20,7 @@ public interface ApiService {
 
     @POST("/wxjfeng/gasappPort")
     Observable<Station> getStations(@HeaderMap Map<String,String> headerMap, @Body String body);
+
+    @POST("/wxjfeng/gasappPort")
+    Observable<ReCharge> getRechargeList(@HeaderMap Map<String,String> headerMap, @Body String body);
 }

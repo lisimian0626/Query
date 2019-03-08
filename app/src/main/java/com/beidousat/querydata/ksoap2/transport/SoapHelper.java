@@ -1,10 +1,10 @@
 package com.beidousat.querydata.ksoap2.transport;
 
-import com.mr_sun.logindemo.ksoap2.HeaderProperty;
-import com.mr_sun.logindemo.ksoap2.SoapEnvelope;
-import com.mr_sun.logindemo.ksoap2.serialization.MarshalBase64;
-import com.mr_sun.logindemo.ksoap2.serialization.SoapObject;
-import com.mr_sun.logindemo.ksoap2.serialization.SoapSerializationEnvelope;
+import com.beidousat.querydata.ksoap2.HeaderProperty;
+import com.beidousat.querydata.ksoap2.SoapEnvelope;
+import com.beidousat.querydata.ksoap2.serialization.MarshalBase64;
+import com.beidousat.querydata.ksoap2.serialization.SoapObject;
+import com.beidousat.querydata.ksoap2.serialization.SoapSerializationEnvelope;
 
 import org.xmlpull.v1.XmlPullParserException;
 

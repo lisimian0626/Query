@@ -20,8 +20,8 @@
 
 package com.beidousat.querydata.ksoap2.serialization;
 
-import com.mr_sun.logindemo.ksoap2.SoapEnvelope;
-import com.mr_sun.logindemo.ksoap2.kobjects.Base64;
+import com.beidousat.querydata.ksoap2.SoapEnvelope;
+import com.beidousat.querydata.ksoap2.kobjects.Base64;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
