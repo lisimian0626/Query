@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.beidousat.querydata.adapter.MyAdapter;
 import com.beidousat.querydata.base.BaseActivity;
@@ -248,6 +249,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     public void onFeedBack(boolean success, String key, Object data) {
+        if(!success){
+            Toast.makeText(this,getText(R.string.text_data_error),Toast.LENGTH_SHORT).show();
+        }
 
     }
 }

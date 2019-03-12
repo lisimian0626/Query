@@ -26,12 +26,18 @@ public class RechargePresenter extends CommonPresenter<RechargeConstract.View> i
     }
 
     @Override
-    public void getStationList(String key,String stationName,String startTime,String endTime,int selectKey,String slectValue,int cur_page,int pre_page) {
+    public void getRechargeList(String key,String stationName,String startTime,String endTime,int selectKey,String slectValue,int cur_page,int pre_page) {
         final String method = getMethodName();
         HashMap<String, Object> properties = new HashMap<String, Object>();
         properties.put("arg0", key);
-        properties.put("arg1", key);
-        List<Object> getParamters =  SoapHelper.getInstance().getParams(Constant.getStationList,Constant.nameSpace,properties);
+        properties.put("arg1", stationName);
+        properties.put("arg2", startTime);
+        properties.put("arg3", endTime);
+        properties.put("arg4", selectKey);
+        properties.put("arg5", slectValue);
+        properties.put("arg6", cur_page);
+        properties.put("arg7", pre_page);
+        List<Object> getParamters =  SoapHelper.getInstance().getParams(Constant.getRechargeList,Constant.nameSpace,properties);
         if(getParamters!=null){
             soapHeaderMap = (Map<String, String>) getParamters.get(0);
             mBody = new String((byte[]) getParamters.get(1));

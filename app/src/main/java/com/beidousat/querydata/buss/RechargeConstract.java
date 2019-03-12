@@ -14,11 +14,11 @@ import com.beidousat.querydata.model.Station;
  */
 public interface RechargeConstract {
     interface View extends BaseView {
-        void OnRequestData(ReCharge station);
+        void OnRequestData(ReCharge reCharge);
     }
 
     interface RechargePresenter extends BasePresenter {
-        void getStationList(String key,String stationName,String startTime,String endTime,int selectKey,String slectValue,int cur_page,int pre_page);
+        void getRechargeList(String key,String stationName,String startTime,String endTime,int selectKey,String slectValue,int cur_page,int pre_page);
 
     }
 
