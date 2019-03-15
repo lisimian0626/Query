@@ -7,6 +7,8 @@ import com.beidousat.querydata.base.BaseView;
 import com.beidousat.querydata.model.ReCharge;
 import com.beidousat.querydata.model.Station;
 
+import java.util.Map;
+
 /**
  * author: Hanson
  * date:   2016/8/31
@@ -18,7 +20,7 @@ public interface RechargeConstract {
     }
 
     interface RechargePresenter extends BasePresenter {
-        void getRechargeList(String key,String stationName,String startTime,String endTime,int selectKey,String slectValue,int cur_page,int pre_page);
+        void getRechargeList(Map<String,String> requestMap, int cur_page, int pre_page);
 
     }
 

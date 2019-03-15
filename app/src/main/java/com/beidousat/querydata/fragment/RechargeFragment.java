@@ -2,18 +2,30 @@ package com.beidousat.querydata.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.widget.Toast;
 
 import com.beidousat.querydata.R;
 import com.beidousat.querydata.base.BaseFragment;
+import com.beidousat.querydata.base.WidgetPage;
 import com.beidousat.querydata.buss.RechargeConstract;
 import com.beidousat.querydata.buss.RechargePresenter;
+import com.beidousat.querydata.common.Constant;
+import com.beidousat.querydata.common.GlobalDataUtil;
 import com.beidousat.querydata.model.ReCharge;
+import com.beidousat.querydata.utils.L;
+import com.beidousat.querydata.widget.OnPageScrollListener;
+import com.beidousat.querydata.widget.WidgetRechargePager;
 
-public class RechargeFragment extends BaseFragment implements RechargeConstract.View{
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+
+public class RechargeFragment extends BaseFragment implements WidgetPage.OnPageChangedListener, OnPageScrollListener,RechargeConstract.View {
     private String  title;
-    private String content="{\"root\":{\"data\": {\"row\":[{\"platenumber\":\"ATR123\",\"owner\":\"王达\",\"company\":\"邯郸站\",\"addmoney\":\"5.00\",\"zengmoney\":\"0.00\",\"staff\":\"super\",\"addtime\":\"2019-01-29 15:56:53.647\"},{\"platenumber\":\"ATR123\",\"owner\":\"王达\",\"company\":\"邯郸站\",\"addmoney\":\"5.00\",\"zengmoney\":\"0.00\",\"staff\":\"super\",\"addtime\":\"2019-01-29 15:57:47.7\"},{\"platenumber\":\"ATR123\",\"owner\":\"王达\",\"company\":\"邯郸站\",\"addmoney\":\"5.00\",\"zengmoney\":\"0.00\",\"staff\":\"super\",\"addtime\":\"2019-01-30 16:21:59.0\"},{\"platenumber\":\"ATR123\",\"owner\":\"王达\",\"company\":\"邯郸站\",\"addmoney\":\"5.00\",\"zengmoney\":\"0.00\",\"staff\":\"super\",\"addtime\":\"2019-01-30 16:25:20.53\"},{\"platenumber\":\"ATR123\",\"owner\":\"王达\",\"company\":\"邯郸站\",\"addmoney\":\"5.00\",\"zengmoney\":\"0.00\",\"staff\":\"super\",\"addtime\":\"2019-01-30 16:40:03.473\"},{\"platenumber\":\"ATR123\",\"owner\":\"王达\",\"company\":\"邯郸站\",\"addmoney\":\"10.00\",\"zengmoney\":\"0.00\",\"staff\":\"super\",\"addtime\":\"2019-01-30 16:40:31.43\"},{\"platenumber\":\"HTM521\",\"owner\":\"加气\",\"company\":\"北站站\",\"addmoney\":\"5.00\",\"zengmoney\":\"0.00\",\"staff\":\"super\",\"addtime\":\"2019-01-30 17:15:13.197\"},{\"platenumber\":\"HTM852\",\"owner\":\"问问\",\"company\":\"北站站\",\"addmoney\":\"200.00\",\"zengmoney\":\"0.00\",\"staff\":\"super\",\"addtime\":\"2019-01-30 17:22:43.217\"},{\"platenumber\":\"THR656\",\"owner\":\"娃娃\",\"company\":\"邯郸站\",\"addmoney\":\"200.00\",\"zengmoney\":\"0.00\",\"staff\":\"super\",\"addtime\":\"2019-01-30 17:33:34.527\"},{\"platenumber\":\"ATR123\",\"owner\":\"王飞\",\"company\":\"北站站\",\"addmoney\":\"1000.00\",\"zengmoney\":\"0.00\",\"staff\":\"super\",\"addtime\":\"2019-02-19 12:00:17.41\"}]},\"response\":{\"errcode\":\"0\"}}}";
-    private RechargePresenter rechargePresenter;
+    private WidgetPage mWidgetPage;
+    private WidgetRechargePager mWidgetRechargePager;
+    private RechargePresenter presenter;
+    private Map<String,String> requestParams=new HashMap<>();
     public static RechargeFragment newInstance(String title){
         RechargeFragment pf=new RechargeFragment();
         Bundle bundle= new Bundle();
@@ -28,7 +40,7 @@ public class RechargeFragment extends BaseFragment implements RechargeConstract.
         super.onCreate(savedInstanceState);
         //取出保存的值
         this.title=getArguments().getString("title");
-        rechargePresenter=new RechargePresenter(this);
+        presenter=new RechargePresenter(this);
     }
 
     @Override
@@ -38,7 +50,10 @@ public class RechargeFragment extends BaseFragment implements RechargeConstract.
 
     @Override
     public void initViews() {
-
+        mWidgetRechargePager = (WidgetRechargePager) mRootView.findViewById(R.id.rechargePaper);
+        mWidgetPage = (WidgetPage) mRootView.findViewById(R.id.w_page);
+        mWidgetPage.setOnPageChangedListener(this);
+        mWidgetRechargePager.setOnPagerScrollListener(this);
     }
 
     @Override
@@ -53,7 +68,10 @@ public class RechargeFragment extends BaseFragment implements RechargeConstract.
 
     @Override
     public void loadDataWhenOnResume() {
-      rechargePresenter.getRechargeList("SKThd2019","北站站","2019-01-01","2019-03-11",0,"",2,10);
+//        requestParams.put("arg0", Constant.Key);
+//        requestParams.put("arg1", GlobalDataUtil.getInstance().getSelectConfig().getStationName());
+
+//        presenter.getRechargeList("SKThd2019","北站站","2019-01-01","2019-03-11",0,"",2,10);
     }
 
     @Override
@@ -62,14 +80,51 @@ public class RechargeFragment extends BaseFragment implements RechargeConstract.
     }
 
     @Override
-    public void OnRequestData(ReCharge station) {
+    public void onPrePageClick(int before, int current) {
 
     }
 
     @Override
-    public void onFeedBack(boolean success, String key, Object data) {
-        if(!success){
-            Toast.makeText(getActivity(),getActivity().getText(R.string.text_data_error),Toast.LENGTH_SHORT).show();
+    public void onNextPageClick(int before, int current) {
+
+    }
+
+    @Override
+    public void onFirstPageClick(int before, int current) {
+
+    }
+
+    @Override
+    public void onPageScrollLeft() {
+
+    }
+
+    @Override
+    public void onPageScrollRight() {
+
+    }
+
+    @Override
+    public void onPagerSelected(int i, boolean b) {
+
+    }
+
+    @Override
+    public void OnRequestData(ReCharge reCharge) {
+        if(reCharge!=null&&reCharge.getRoot()!=null&&reCharge.getRoot().getData()!=null&&reCharge.getRoot().getData().size()>0){
+
         }
+    }
+
+    @Override
+    public void onFeedBack(boolean success, String key, Object data) {
+
+    }
+
+    public void initRechargePager(int totalPage, List<ReCharge.RootBean.DataBean> dataBeanList, Map<String, String> params) {
+        L.i(getClass().getSimpleName(), "Current total page:" + totalPage);
+        mWidgetPage.setPageCurrent(0);
+        mWidgetPage.setPageTotal(totalPage);
+        mWidgetRechargePager.initPager(totalPage, dataBeanList, params);
     }
 }

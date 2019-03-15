@@ -71,7 +71,7 @@ public class WidgetRechargePage extends GridRecyclerView  implements RechargeCon
     }
 
     private void requestRecharges(int page, Map<String, String> map) {
-        rechargePresenter.getRechargeList("SKThd2019","北站站","2019-01-01","2019-03-11",0,"",2,10);
+//        rechargePresenter.getRechargeList("SKThd2019","北站站","2019-01-01","2019-03-11",0,"",2,10);
     }
     public void runLayoutAnimation() {
 //        if (mAdapter != null) {

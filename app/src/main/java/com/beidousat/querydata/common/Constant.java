@@ -8,4 +8,5 @@ public class Constant {
     public static String nameSpace = "http://gasjfeng/";
     public static String getStationList = "GetStationList";
     public static String getRechargeList = "GetRechargeList";
+    public static String Key="SKThd2019";
 }

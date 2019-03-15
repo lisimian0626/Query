@@ -59,13 +59,29 @@ public class DateFormatUtils {
         }
     }
 
-    public static String getStartTimeforCurrent(Date date){
+    public static String getBeginTimeforCurrent(Date date){
         String year="";
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Calendar c = Calendar.getInstance();
-        //过去一年
+        //过去10年
         c.setTime(new Date());
         c.add(Calendar.YEAR, -10);
+        Date y = c.getTime();
+        try {
+            year = format.format(y);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return year;
+    }
+
+    public static String getStartTimeforCurrent(Date date){
+        String year="";
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar c = Calendar.getInstance();
+        //过去10年
+        c.setTime(new Date());
+        c.add(Calendar.YEAR, -1);
         Date y = c.getTime();
         try {
             year = format.format(y);

@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
+    <com.beidousat.querydata.widget.WidgetRechargePager
+        android:id="@+id/rechargePaper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+         />
 
+    <com.beidousat.querydata.base.WidgetPage
+        android:id="@+id/w_page"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>
 

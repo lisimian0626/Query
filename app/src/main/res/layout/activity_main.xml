@@ -4,144 +4,71 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
-    <!--
-        //为了效果更好，toolbar使用单独的theme
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        //修改的是弹出菜单项的theme
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-    -->
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="20dp"
+    >
+    <Button
+        android:id="@+id/main_recharge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:drawableTop="@drawable/recharge"
+        android:background="@color/transparent"
+        android:text="@string/recharge"
+        />
+    <Button
+        android:id="@+id/main_change_duty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:drawableTop="@drawable/change_duty"
+        android:background="@color/transparent"
+        android:text="@string/recharge"
+        />
+    <Button
+        android:id="@+id/main_cash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:drawableTop="@drawable/cash"
+        android:background="@color/transparent"
+        android:text="@string/recharge"
+        />
+</LinearLayout>
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-        <LinearLayout
-            android:layout_marginLeft="38dp"
-            android:id="@+id/ll_start_time"
-            android:layout_width="140dp"
-            android:layout_height="40dp"
-            android:background="@color/white"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tv_selected_start_time"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="15dp"
-                android:background="@null"
-                android:gravity="center_vertical"
-                android:text="@string/start_time"
-                android:textColor="@color/color_text2"
-                android:textSize="15sp" />
-
-            <!--<Space-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_weight="1" />-->
-
-            <!--<TextView-->
-                <!--android:id="@+id/tv_selected_start_time"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_marginEnd="15dp"-->
-                <!--android:background="@null"-->
-                <!--android:gravity="center_vertical"-->
-                <!--android:textColor="@color/color_blue"-->
-                <!--android:textSize="15sp" />-->
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_marginLeft="15dp"
-            android:id="@+id/ll_end_time"
-            android:layout_width="150dp"
-            android:layout_height="40dp"
-            android:background="@color/white"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tv_selected_endtime"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="15dp"
-                android:background="@null"
-                android:gravity="center_vertical"
-                android:text="@string/start_time"
-                android:textColor="@color/color_text2"
-                android:textSize="15sp" />
-
-            <!--<Space-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_weight="1" />-->
-
-            <!--<TextView-->
-                <!--android:id="@+id/tv_selected_endtime"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_marginEnd="15dp"-->
-                <!--android:background="@null"-->
-                <!--android:gravity="center_vertical"-->
-                <!--android:textColor="@color/color_blue"-->
-                <!--android:textSize="15sp" />-->
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_marginLeft="20dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
+        android:layout_margin="20dp"
+        >
+        <Button
+            android:id="@+id/main_gas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/query"
-            android:textColor="@color/color_text1"
-            android:textSize="@dimen/Z18"
-            android:background="@color/white"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/gas"
+            android:background="@color/transparent"
+            android:text="@string/gas"
             />
-    </android.support.v7.widget.Toolbar>
-
-    <android.support.v4.widget.DrawerLayout
-        android:id="@+id/layout_draw"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            >
-
-            <android.support.design.widget.TabLayout
-                android:id="@+id/tab"
-                android:layout_width="match_parent"
-                android:layout_height="50dp">
-
-            </android.support.design.widget.TabLayout>
-            <android.support.v4.view.ViewPager
-                android:id="@+id/vp"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                >
-
-            </android.support.v4.view.ViewPager>
-        </LinearLayout>
-        <android.support.design.widget.NavigationView
-            android:id="@+id/layout_navigation"
-            android:layout_width="150dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            app:menu="@menu/menu_main"/>
-
-    </android.support.v4.widget.DrawerLayout>
+        <Button
+            android:id="@+id/main_store"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/store"
+            android:background="@color/transparent"
+            android:text="@string/store"
+            />
+        <Button
+            android:id="@+id/main_backup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/backup"
+            android:background="@color/transparent"
+            android:text="@string/backup"
+            />
+    </LinearLayout>
 </LinearLayout>
 

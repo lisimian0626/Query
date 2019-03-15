@@ -13,7 +13,7 @@ import com.beidousat.widgetlibs.viewpager.ViewPagerScroller;
  */
 public class WidgetBasePager extends ViewPager {
 
-    Context mContext;
+    protected Context mContext;
 
     private static final int MOVE_LIMITATION = 100;// 触发移动的像素距离
 

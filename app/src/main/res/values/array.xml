@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="spinner_recharge">
+        <item>  ALL   </item>
+        <item> 卡类型 </item>
+        <item> 卡外码 </item>
+        <item> 车牌号 </item>
+        <item> 持卡人 </item>
+        <item>所属公司</item>
+        <item>充值类型</item>
+        <item>支付方式</item>
+    </string-array>
+</resources>
