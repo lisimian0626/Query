@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -84,6 +85,14 @@
             style="@style/Widget.AppCompat.Spinner.Underlined"
             >
         </Spinner>
+        <EditText
+            android:id="@+id/et_recharge_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/text_hint"
+            android:cursorVisible="false"
+            android:textSize="@dimen/Z14"
+            />
         <TextView
             android:id="@+id/recharge_query"
             android:layout_marginLeft="20dp"
@@ -105,23 +114,28 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             >
+            <include
+                android:id="@+id/recharge_head"
+                layout="@layout/list_item_recharge"
+                android:visibility="gone"
+                tools:ignore="InvalidId" />
             <com.beidousat.querydata.widget.WidgetRechargePager
                 android:id="@+id/rechargePaper"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="5"
                 />
-
             <com.beidousat.querydata.base.WidgetPage
                 android:id="@+id/w_page"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                />
         </LinearLayout>
         <android.support.design.widget.NavigationView
             android:id="@+id/layout_navigation"

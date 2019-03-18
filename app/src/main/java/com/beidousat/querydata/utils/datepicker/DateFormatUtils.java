@@ -61,7 +61,7 @@ public class DateFormatUtils {
 
     public static String getBeginTimeforCurrent(Date date){
         String year="";
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat format = new SimpleDateFormat(DATE_FORMAT_PATTERN_YMD_HM);
         Calendar c = Calendar.getInstance();
         //过去10年
         c.setTime(new Date());
@@ -75,13 +75,27 @@ public class DateFormatUtils {
         return year;
     }
 
-    public static String getStartTimeforCurrent(Date date){
+    public static String getStartTimeforCurrent(Date date,boolean longtime){
         String year="";
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat format = longtime?new SimpleDateFormat(DATE_FORMAT_PATTERN_YMD_HM):new SimpleDateFormat(DATE_FORMAT_PATTERN_YMD);
         Calendar c = Calendar.getInstance();
         //过去10年
         c.setTime(new Date());
         c.add(Calendar.YEAR, -1);
+        Date y = c.getTime();
+        try {
+            year = format.format(y);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return year;
+    }
+    public static String getEndTimeforCurrent(Date date,boolean longtime){
+        String year="";
+        SimpleDateFormat format = longtime?new SimpleDateFormat(DATE_FORMAT_PATTERN_YMD_HM):new SimpleDateFormat(DATE_FORMAT_PATTERN_YMD);
+        Calendar c = Calendar.getInstance();
+        //过去10年
+        c.setTime(new Date());
         Date y = c.getTime();
         try {
             year = format.format(y);

@@ -9,6 +9,7 @@ import java.util.List;
 
 public class Station {
 
+
     /**
      * root : {"data":[{"stationName":"北站站"},{"stationName":"东圃站"}],"response":{"errcode":"0"}}
      */

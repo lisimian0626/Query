@@ -24,7 +24,6 @@ public class AdtRecharge extends RecyclerView.Adapter<AdtRecharge.ViewHolder> {
     private Context mContext;
     private LayoutInflater mInflater;
     private List<ReCharge.RootBean.DataBean> mData = new ArrayList<>();
-
     public AdtRecharge(Context context) {
         mContext = context;
         mInflater = LayoutInflater.from(context);
@@ -32,9 +31,14 @@ public class AdtRecharge extends RecyclerView.Adapter<AdtRecharge.ViewHolder> {
 
 
     public void setData(List<ReCharge.RootBean.DataBean> data) {
+        data.add(0,new ReCharge.RootBean.DataBean("车牌号","持卡人","所属公司","充值金额","赠送金额","操作人","操作时间"));
         this.mData = data;
     }
-
+    public void setSum(ReCharge.RootBean.SumBean sum){
+        if(sum!=null){
+            mData.add(1,sum.toDataBean());
+        }
+    }
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView plateNum;
         public TextView owner;
@@ -71,6 +75,15 @@ public class AdtRecharge extends RecyclerView.Adapter<AdtRecharge.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final ReCharge.RootBean.DataBean dataBean = mData.get(position);
+        if(position==1){
+            holder.plateNum.setBackgroundResource(R.drawable.text_bg_stroke_yellow);
+            holder.owner.setBackgroundResource(R.drawable.text_bg_stroke_yellow);
+            holder.company.setBackgroundResource(R.drawable.text_bg_stroke_yellow);
+            holder.recharge_add.setBackgroundResource(R.drawable.text_bg_stroke_yellow);
+            holder.recharge_zeng.setBackgroundResource(R.drawable.text_bg_stroke_yellow);
+            holder.staff.setBackgroundResource(R.drawable.text_bg_stroke_yellow);
+            holder.time.setBackgroundResource(R.drawable.text_bg_stroke_yellow);
+        }
         holder.plateNum.setText(dataBean.getPlatenumber());
         holder.owner.setText(dataBean.getOwner());
         holder.company.setText(dataBean.getCompany());

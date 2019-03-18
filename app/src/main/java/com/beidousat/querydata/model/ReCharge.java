@@ -1,5 +1,7 @@
 package com.beidousat.querydata.model;
 
+import android.text.TextUtils;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -116,6 +118,13 @@ public class ReCharge {
             public void setZengnum(String zengnum) {
                 this.zengnum = zengnum;
             }
+
+            public DataBean toDataBean(){
+                DataBean dataBean=new DataBean();
+                dataBean.setAddmoney(getAddsum());
+                dataBean.setZengmoney(getZengnum());
+                return dataBean;
+            }
         }
 
         public static class ResponseBean {
@@ -160,6 +169,19 @@ public class ReCharge {
             private String zengmoney;
             private String staff;
             private String addtime;
+
+            public DataBean() {
+            }
+
+            public DataBean(String platenumber, String owner, String company, String addmoney, String zengmoney, String staff, String addtime) {
+                this.platenumber = platenumber;
+                this.owner = owner;
+                this.company = company;
+                this.addmoney = addmoney;
+                this.zengmoney = zengmoney;
+                this.staff = staff;
+                this.addtime = addtime;
+            }
 
             public static List<DataBean> arrayDataBeanFromData(String str) {
 
@@ -218,7 +240,17 @@ public class ReCharge {
             }
 
             public String getAddtime() {
-                return addtime;
+                if(!TextUtils.isEmpty(addtime)){
+                    String str;
+                    try {
+                        str=addtime.substring(0,addtime.lastIndexOf(":"));
+                    }catch (Exception e){
+                        e.printStackTrace();
+                        return addtime;
+                    }
+                    return str;
+                }
+              return addtime;
             }
 
             public void setAddtime(String addtime) {

@@ -25,7 +25,7 @@
         android:layout_weight="1"
         android:drawableTop="@drawable/change_duty"
         android:background="@color/transparent"
-        android:text="@string/recharge"
+        android:text="@string/changeDuty"
         />
     <Button
         android:id="@+id/main_cash"
@@ -34,7 +34,7 @@
         android:layout_weight="1"
         android:drawableTop="@drawable/cash"
         android:background="@color/transparent"
-        android:text="@string/recharge"
+        android:text="@string/cash"
         />
 </LinearLayout>
     <LinearLayout

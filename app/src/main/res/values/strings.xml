@@ -4,7 +4,7 @@
     <string name="text_user_pwd">密  码：</string>
     <string name="text_user_name">用户名：</string>
     <string name="text_user_login">登录</string>
-
+    <string name="text_hint">查询内容:</string>
     <string name="open">开</string>
     <string name="close">关</string>
 

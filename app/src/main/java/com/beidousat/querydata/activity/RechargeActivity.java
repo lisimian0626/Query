@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -37,7 +38,9 @@ import com.beidousat.querydata.utils.L;
 import com.beidousat.querydata.utils.datepicker.CustomDatePicker;
 import com.beidousat.querydata.utils.datepicker.DateFormatUtils;
 import com.beidousat.querydata.utils.datepicker.DoubleDatePickerDialog;
+import com.beidousat.querydata.widget.OnPageScrollListener;
 import com.beidousat.querydata.widget.WidgetRechargePager;
+
 
 import java.util.Calendar;
 import java.util.Date;
@@ -45,7 +48,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class RechargeActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, StationConstract.View, RechargeConstract.View {
+public class RechargeActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, StationConstract.View, RechargeConstract.View,OnPageScrollListener, WidgetPage.OnPageChangedListener  {
     DrawerLayout mDrawerLayout;
     Toolbar mToolbar;
     NavigationView mNavigationView;
@@ -59,6 +62,9 @@ public class RechargeActivity extends BaseActivity implements NavigationView.OnN
     private StationPresenter stationPresenter;
     private RechargePresenter rechargePresenter;
     private Map<String, String> requestParams;
+    private EditText et_search;
+    private LinearLayout layout_head;
+    private LinearLayout layout_bottom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,16 +92,20 @@ public class RechargeActivity extends BaseActivity implements NavigationView.OnN
         mTvStartTime = findViewById(R.id.tv_selected_start_time);
         mTvEndTime = findViewById(R.id.tv_selected_endtime);
         mTvTitle = findViewById(R.id.recharge_title);
+        et_search=findViewById(R.id.et_recharge_search);
         icon_back = findViewById(R.id.recharge_ic_back);
         mWidgetRechargePager = findViewById(R.id.rechargePaper);
         mWidgetPage = findViewById(R.id.w_page);
         spinner = findViewById(R.id.recharge_spinner);
         query = findViewById(R.id.recharge_query);
+//        layout_head=findViewById(R.id.recharge_head);
         mTvTitle.setText("ALL");
+        mWidgetPage.setOnPageChangedListener(this);
+        mWidgetRechargePager.setOnPagerScrollListener(this);
         //设置toolbar
         SelectConfig selectConfig = new SelectConfig();
         selectConfig.setStationName("ALL");
-        selectConfig.setSelect_text("ALL");
+        selectConfig.setSelect_text("");
         GlobalDataUtil.getInstance().setSelectConfig(selectConfig);
         intiToolbar();
         initTimerPicker();
@@ -140,7 +150,6 @@ public class RechargeActivity extends BaseActivity implements NavigationView.OnN
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 GlobalDataUtil.getInstance().getSelectConfig().setSelect_index(i);
-                GlobalDataUtil.getInstance().getSelectConfig().setSelect_text(adapterView.getItemAtPosition(i).toString());
             }
 
             @Override
@@ -159,7 +168,7 @@ public class RechargeActivity extends BaseActivity implements NavigationView.OnN
     @Override
     public void loadDataWhenOnResume() {
         stationPresenter.getStationList(Constant.Key);
-        requestRecharge();
+
     }
 
     private void requestRecharge() {
@@ -170,7 +179,7 @@ public class RechargeActivity extends BaseActivity implements NavigationView.OnN
         requestParams.put("arg3", GlobalDataUtil.getInstance().getSelectConfig().getEnd_time());
         requestParams.put("arg4", String.valueOf(GlobalDataUtil.getInstance().getSelectConfig().getSelect_index()));
         requestParams.put("arg5", String.valueOf(GlobalDataUtil.getInstance().getSelectConfig().getSelect_text()));
-        rechargePresenter.getRechargeList(requestParams, 0, 10);
+        rechargePresenter.getRechargeList(requestParams, 1, Constant.per_pager);
     }
 
     @Override
@@ -211,7 +220,7 @@ public class RechargeActivity extends BaseActivity implements NavigationView.OnN
                 mStartTimerPicker.show(mTvStartTime.getText().toString());
                 break;
             case R.id.ll_end_time:
-                mStartTimerPicker.show(mTvEndTime.getText().toString());
+                mEndTimerPicker.show(mTvEndTime.getText().toString());
                 break;
             case R.id.recharge_ic_back:
                 finish();
@@ -220,6 +229,7 @@ public class RechargeActivity extends BaseActivity implements NavigationView.OnN
                 toggle();
                 break;
             case R.id.recharge_query:
+                GlobalDataUtil.getInstance().getSelectConfig().setSelect_text(et_search.getText().toString().trim());
                 requestRecharge();
                 break;
         }
@@ -242,11 +252,12 @@ public class RechargeActivity extends BaseActivity implements NavigationView.OnN
     private void initTimerPicker() {
 
         String beginTime = DateFormatUtils.getBeginTimeforCurrent(new Date(System.currentTimeMillis()));
-        String startTime = DateFormatUtils.getStartTimeforCurrent(new Date(System.currentTimeMillis()));
-        String endTime = DateFormatUtils.long2Str(System.currentTimeMillis(), false);
+        String startTime = DateFormatUtils.getStartTimeforCurrent(new Date(System.currentTimeMillis()),true);
+        String endTime = DateFormatUtils.getEndTimeforCurrent(new Date(System.currentTimeMillis()),true);
+//        String endTime = DateFormatUtils.long2Str(System.currentTimeMillis(), true);
 
-        mTvStartTime.setText(startTime);
-        GlobalDataUtil.getInstance().getSelectConfig().setStart_time(startTime);
+        mTvStartTime.setText(DateFormatUtils.getStartTimeforCurrent(new Date(System.currentTimeMillis()),false));
+        GlobalDataUtil.getInstance().getSelectConfig().setStart_time(DateFormatUtils.getStartTimeforCurrent(new Date(System.currentTimeMillis()),false));
         // 通过日期字符串初始化日期，格式请用：yyyy-MM-dd HH:mm
         mStartTimerPicker = new CustomDatePicker(this, new CustomDatePicker.Callback() {
             @Override
@@ -254,7 +265,7 @@ public class RechargeActivity extends BaseActivity implements NavigationView.OnN
                 mTvStartTime.setText(DateFormatUtils.long2Str(timestamp, false));
                 GlobalDataUtil.getInstance().getSelectConfig().setStart_time(DateFormatUtils.long2Str(timestamp, false));
             }
-        }, beginTime, endTime);
+        }, beginTime, startTime);
         // 允许点击屏幕或物理返回键关闭
         mStartTimerPicker.setCancelable(true);
         // 显示时和分
@@ -264,8 +275,8 @@ public class RechargeActivity extends BaseActivity implements NavigationView.OnN
         // 允许滚动动画
         mStartTimerPicker.setCanShowAnim(true);
 
-        mTvEndTime.setText(endTime);
-        GlobalDataUtil.getInstance().getSelectConfig().setEnd_time(endTime);
+        mTvEndTime.setText(DateFormatUtils.getEndTimeforCurrent(new Date(System.currentTimeMillis()),false));
+        GlobalDataUtil.getInstance().getSelectConfig().setEnd_time(DateFormatUtils.getEndTimeforCurrent(new Date(System.currentTimeMillis()),false));
         // 通过日期字符串初始化日期，格式请用：yyyy-MM-dd HH:mm
         mEndTimerPicker = new CustomDatePicker(this, new CustomDatePicker.Callback() {
             @Override
@@ -286,6 +297,7 @@ public class RechargeActivity extends BaseActivity implements NavigationView.OnN
 
     @Override
     public void OnRequestData(Station station) {
+        requestRecharge();
         List<Station.RootBean.DataBean> dataBeanList = station.getRoot().getData();
         if (dataBeanList != null && dataBeanList.size() > 0 && !mNavigationView.getMenu().hasVisibleItems()) {
             for (int i = 0; i < dataBeanList.size(); i++) {
@@ -321,7 +333,7 @@ public class RechargeActivity extends BaseActivity implements NavigationView.OnN
     @Override
     public void OnRequestData(ReCharge reCharge) {
         if (reCharge != null && reCharge.getRoot() != null && reCharge.getRoot().getData() != null && reCharge.getRoot().getData().size() > 0) {
-//            initRechargePager(Integer.valueOf(reCharge.getRoot().getTotal()), reCharge.getRoot().getData(), mRequestParam);
+            initRechargePager(Integer.valueOf(reCharge.getRoot().getTotal()), reCharge.getRoot().getData(),reCharge.getRoot().getSum(), requestParams);
         }
     }
 
@@ -335,10 +347,48 @@ public class RechargeActivity extends BaseActivity implements NavigationView.OnN
         }
     }
 
-    public void initRechargePager(int totalPage, List<ReCharge.RootBean.DataBean> dataBeanList, Map<String, String> params) {
+    public void initRechargePager(int totalPage, List<ReCharge.RootBean.DataBean> dataBeanList, ReCharge.RootBean.SumBean sumBean,Map<String, String> params) {
         L.i(getClass().getSimpleName(), "Current total page:" + totalPage);
         mWidgetPage.setPageCurrent(0);
         mWidgetPage.setPageTotal(totalPage);
+        mWidgetRechargePager.setSumBean(sumBean);
         mWidgetRechargePager.initPager(totalPage, dataBeanList, params);
+    }
+
+    @Override
+    public void onPrePageClick(int before, int current) {
+        mWidgetRechargePager.setCurrentItem(current);
+    }
+
+    @Override
+    public void onNextPageClick(int before, int current) {
+        mWidgetRechargePager.setCurrentItem(current);
+    }
+
+    @Override
+    public void onFirstPageClick(int before, int current) {
+        mWidgetRechargePager.setCurrentItem(current);
+        mWidgetPage.setPrePressed(false);
+        mWidgetPage.setNextPressed(false);
+    }
+
+    @Override
+    public void onPageScrollLeft() {
+        mWidgetPage.setPrePressed(true);
+        mWidgetPage.setNextPressed(false);
+    }
+
+    @Override
+    public void onPageScrollRight() {
+        mWidgetPage.setPrePressed(false);
+        mWidgetPage.setNextPressed(true);
+    }
+
+    @Override
+    public void onPagerSelected(int i, boolean b) {
+        mWidgetRechargePager.runLayoutAnimation();
+        mWidgetPage.setPageCurrent(i);
+        mWidgetPage.setPrePressed(false);
+        mWidgetPage.setNextPressed(false);
     }
 }

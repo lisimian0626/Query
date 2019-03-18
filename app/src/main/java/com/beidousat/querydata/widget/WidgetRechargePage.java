@@ -10,6 +10,7 @@ import com.beidousat.querydata.R;
 import com.beidousat.querydata.adapter.AdtRecharge;
 import com.beidousat.querydata.buss.RechargeConstract;
 import com.beidousat.querydata.buss.RechargePresenter;
+import com.beidousat.querydata.common.Constant;
 import com.beidousat.querydata.model.ReCharge;
 import com.beidousat.widgetlibs.recycler.GridRecyclerView;
 import com.beidousat.widgetlibs.recycler.HorizontalDividerItemDecoration;
@@ -62,8 +63,9 @@ public class WidgetRechargePage extends GridRecyclerView  implements RechargeCon
         setVerticalScrollBarEnabled(false);
         setAdapter(mAdapter);
     }
-    public void setRecharge(List<ReCharge.RootBean.DataBean> dataBeanList) {
+    public void setRecharge(List<ReCharge.RootBean.DataBean> dataBeanList, ReCharge.RootBean.SumBean sumBean) {
         mAdapter.setData(dataBeanList);
+        mAdapter.setSum(sumBean);
     }
 
     public void loadRecharge(int page, Map<String, String> map) {
@@ -71,7 +73,7 @@ public class WidgetRechargePage extends GridRecyclerView  implements RechargeCon
     }
 
     private void requestRecharges(int page, Map<String, String> map) {
-//        rechargePresenter.getRechargeList("SKThd2019","北站站","2019-01-01","2019-03-11",0,"",2,10);
+        rechargePresenter.getRechargeList(map,page, Constant.per_pager);
     }
     public void runLayoutAnimation() {
 //        if (mAdapter != null) {
@@ -87,6 +89,9 @@ public class WidgetRechargePage extends GridRecyclerView  implements RechargeCon
           if(reCharge!=null&&reCharge.getRoot()!=null&&reCharge.getRoot().getData()!=null){
               List<ReCharge.RootBean.DataBean> dataBeanList=reCharge.getRoot().getData();
               mAdapter.setData(dataBeanList);
+              if(reCharge.getRoot().getSum()!=null){
+                  mAdapter.setSum(reCharge.getRoot().getSum());
+              }
               mAdapter.notifyDataSetChanged();
           }
     }

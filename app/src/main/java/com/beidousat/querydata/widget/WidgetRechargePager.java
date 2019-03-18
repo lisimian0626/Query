@@ -25,7 +25,7 @@ public class WidgetRechargePager extends WidgetBasePager {
     private RechargePagerAdapter mAdapter;
     private Map<String, String> mRequestParams = new HashMap<String, String>();
     private Map<Integer, List<ReCharge.RootBean.DataBean>> mIndexPage;
-
+    private ReCharge.RootBean.SumBean sumBean;
 
     public WidgetRechargePager(Context context) {
         super(context);
@@ -46,6 +46,14 @@ public class WidgetRechargePager extends WidgetBasePager {
         setOffscreenPageLimit(3);
         setAdapter(mAdapter);
         runLayoutAnimation();
+    }
+
+    public ReCharge.RootBean.SumBean getSumBean() {
+        return sumBean;
+    }
+
+    public void setSumBean(ReCharge.RootBean.SumBean sumBean) {
+        this.sumBean = sumBean;
     }
 
     public void runLayoutAnimation() {
@@ -91,8 +99,9 @@ public class WidgetRechargePager extends WidgetBasePager {
                 page = new WidgetRechargePage(mContext);
                 page.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
                 if (mIndexPage.containsKey(position + 1)) {
-                    page.setRecharge(mIndexPage.get(position + 1));
-                } else {
+                    page.setRecharge(mIndexPage.get(position + 1),sumBean);
+                }
+                else {
                     page.loadRecharge(position + 1, mRequestParams);
                 }
                 sparseArray.put(position, page);

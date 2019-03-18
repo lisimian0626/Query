@@ -8,6 +8,7 @@ import com.beidousat.querydata.http.exception.AbsExceptionEngine;
 import com.beidousat.querydata.ksoap2.transport.SoapHelper;
 import com.beidousat.querydata.model.ReCharge;
 import com.beidousat.querydata.model.Station;
+import com.beidousat.querydata.utils.L;
 
 import java.util.HashMap;
 import java.util.List;
@@ -34,6 +35,7 @@ public class RechargePresenter extends CommonPresenter<RechargeConstract.View> i
         }
         properties.put("arg6", cur_page);
         properties.put("arg7", pre_page);
+        L.test("properties:"+properties.toString());
         List<Object> getParamters =  SoapHelper.getInstance().getParams(Constant.getRechargeList,Constant.nameSpace,properties);
         if(getParamters!=null){
             soapHeaderMap = (Map<String, String>) getParamters.get(0);
@@ -50,8 +52,8 @@ public class RechargePresenter extends CommonPresenter<RechargeConstract.View> i
                 }).subscribe(new Consumer<ReCharge>() {
                     @Override
                     public void accept(ReCharge reCharge) throws Exception {
-                        mView.OnRequestData(reCharge);
                         mView.hideLoading();
+                        mView.OnRequestData(reCharge);
                     }
                 }, new AbsExceptionEngine() {
                     @Override

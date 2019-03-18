@@ -15,4 +15,5 @@
     <color name="date_picker_divider">#11112233</color>
 
     <color name="date_picker_text_light">#59B29C</color>
+    <color name="popup_countdown">#FFCC00</color>
 </resources>
