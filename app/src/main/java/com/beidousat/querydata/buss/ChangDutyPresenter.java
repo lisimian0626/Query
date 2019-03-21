@@ -6,7 +6,9 @@ import com.beidousat.querydata.base.CommonPresenter;
 import com.beidousat.querydata.common.Constant;
 import com.beidousat.querydata.http.exception.AbsExceptionEngine;
 import com.beidousat.querydata.ksoap2.transport.SoapHelper;
-import com.beidousat.querydata.model.Station;
+import com.beidousat.querydata.model.Banci;
+import com.beidousat.querydata.model.ReCharge;
+import com.beidousat.querydata.utils.L;
 
 import java.util.HashMap;
 import java.util.List;
@@ -17,24 +19,30 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-public class StationPresenter extends CommonPresenter<StationConstract.View> implements StationConstract.StationPresenter {
+public class ChangDutyPresenter extends CommonPresenter<BanciConstract.View> implements BanciConstract.ChangeDutyPresenter {
     private Map<String,String> soapHeaderMap;
     private String mBody;
-    public StationPresenter(StationConstract.View view) {
+
+    public ChangDutyPresenter(BanciConstract.View view) {
         super(view);
     }
 
     @Override
-    public void getStationList(String key) {
+    public void getChangeDutyList(Map<String, String> requestMap, int cur_page, int pre_page) {
         final String method = getMethodName();
         HashMap<String, Object> properties = new HashMap<String, Object>();
-        properties.put("arg0", key);
-        List<Object> getParamters =  SoapHelper.getInstance().getParams(Constant.GETSTATIONLIST,Constant.nameSpace,properties);
+        for (Map.Entry<String, String> entry : requestMap.entrySet()) {
+            properties.put(entry.getKey(), entry.getValue());
+        }
+        properties.put("arg6", cur_page);
+        properties.put("arg7", pre_page);
+        L.test("properties:"+properties.toString());
+        List<Object> getParamters =  SoapHelper.getInstance().getParams(Constant.GETCHANGEDUTYDETAILLIST,Constant.nameSpace,properties);
         if(getParamters!=null){
             soapHeaderMap = (Map<String, String>) getParamters.get(0);
             mBody = new String((byte[]) getParamters.get(1));
         }
-        Disposable disposable = mApiService.getStations(soapHeaderMap,mBody)
+        Disposable disposable = mApiService.getChangeDutyList(soapHeaderMap,mBody)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(new Consumer<Disposable>() {
@@ -42,11 +50,11 @@ public class StationPresenter extends CommonPresenter<StationConstract.View> imp
                     public void accept(Disposable disposable) throws Exception {
                         mView.showLoading("正在加载中，请稍等...");
                     }
-                }).subscribe(new Consumer<Station>() {
+                }).subscribe(new Consumer<Banci>() {
                     @Override
-                    public void accept(Station station) throws Exception {
-                        mView.OnRequestData(station);
+                    public void accept(Banci banci) throws Exception {
                         mView.hideLoading();
+                        mView.OnRequestData(banci);
                     }
                 }, new AbsExceptionEngine() {
                     @Override

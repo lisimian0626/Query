@@ -8,12 +8,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,56 +19,54 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.beidousat.querydata.MainActivity;
 import com.beidousat.querydata.R;
 import com.beidousat.querydata.base.BaseActivity;
 import com.beidousat.querydata.base.WidgetPage;
+import com.beidousat.querydata.buss.BanciConstract;
+import com.beidousat.querydata.buss.ChangDutyPresenter;
 import com.beidousat.querydata.buss.RechargeConstract;
 import com.beidousat.querydata.buss.RechargePresenter;
 import com.beidousat.querydata.buss.StationConstract;
 import com.beidousat.querydata.buss.StationPresenter;
 import com.beidousat.querydata.common.Constant;
 import com.beidousat.querydata.common.GlobalDataUtil;
+import com.beidousat.querydata.model.Banci;
 import com.beidousat.querydata.model.ReCharge;
 import com.beidousat.querydata.model.SelectConfig;
 import com.beidousat.querydata.model.Station;
 import com.beidousat.querydata.utils.L;
 import com.beidousat.querydata.utils.datepicker.CustomDatePicker;
 import com.beidousat.querydata.utils.datepicker.DateFormatUtils;
-import com.beidousat.querydata.utils.datepicker.DoubleDatePickerDialog;
 import com.beidousat.querydata.widget.OnPageScrollListener;
+import com.beidousat.querydata.widget.WidgetChangeDutyPager;
 import com.beidousat.querydata.widget.WidgetRechargePager;
 
-
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class RechargeActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, StationConstract.View, RechargeConstract.View,OnPageScrollListener, WidgetPage.OnPageChangedListener  {
+public class ChangDutyActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, StationConstract.View, BanciConstract.View,OnPageScrollListener, WidgetPage.OnPageChangedListener  {
     DrawerLayout mDrawerLayout;
     Toolbar mToolbar;
     NavigationView mNavigationView;
     private ActionBarDrawerToggle mDrawerToggle;
     private WidgetPage mWidgetPage;
-    private WidgetRechargePager mWidgetRechargePager;
+    private WidgetChangeDutyPager widgetChangeDutyPager;
     private ImageView icon_back;
     private TextView mTvStartTime, mTvEndTime, mTvTitle, query;
     private Spinner spinner;
     private CustomDatePicker mStartTimerPicker, mEndTimerPicker;
     private StationPresenter stationPresenter;
-    private RechargePresenter rechargePresenter;
+    private ChangDutyPresenter changDutyPresenter;
     private Map<String, String> requestParams;
     private EditText et_search;
-    private LinearLayout layout_head;
-    private LinearLayout layout_bottom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         stationPresenter = new StationPresenter(this);
-        rechargePresenter = new RechargePresenter(this);
+        changDutyPresenter = new ChangDutyPresenter(this);
 
     }
 
@@ -81,7 +77,7 @@ public class RechargeActivity extends BaseActivity implements NavigationView.OnN
 
     @Override
     public int getContentView() {
-        return R.layout.recharge_main;
+        return R.layout.changduty_main;
     }
 
     @Override
@@ -94,14 +90,14 @@ public class RechargeActivity extends BaseActivity implements NavigationView.OnN
         mTvTitle = findViewById(R.id.recharge_title);
         et_search=findViewById(R.id.et_recharge_search);
         icon_back = findViewById(R.id.recharge_ic_back);
-        mWidgetRechargePager = findViewById(R.id.rechargePaper);
+        widgetChangeDutyPager = findViewById(R.id.change_duty_pager);
         mWidgetPage = findViewById(R.id.w_page);
         spinner = findViewById(R.id.recharge_spinner);
         query = findViewById(R.id.recharge_query);
 //        layout_head=findViewById(R.id.recharge_head);
         mTvTitle.setText("全部站点");
         mWidgetPage.setOnPageChangedListener(this);
-        mWidgetRechargePager.setOnPagerScrollListener(this);
+        widgetChangeDutyPager.setOnPagerScrollListener(this);
         //设置toolbar
         SelectConfig selectConfig = new SelectConfig();
         selectConfig.setStationName("全部站点");
@@ -171,7 +167,7 @@ public class RechargeActivity extends BaseActivity implements NavigationView.OnN
 
     }
 
-    private void requestRecharge() {
+    private void requestChangeDuty() {
         requestParams = new HashMap<>();
         requestParams.put("arg0", Constant.Key);
         requestParams.put("arg1", GlobalDataUtil.getInstance().getSelectConfig().getStationName().equals("全部站点")?"ALL":GlobalDataUtil.getInstance().getSelectConfig().getStationName());
@@ -179,7 +175,7 @@ public class RechargeActivity extends BaseActivity implements NavigationView.OnN
         requestParams.put("arg3", GlobalDataUtil.getInstance().getSelectConfig().getEnd_time());
         requestParams.put("arg4", String.valueOf(GlobalDataUtil.getInstance().getSelectConfig().getSelect_index()));
         requestParams.put("arg5", String.valueOf(GlobalDataUtil.getInstance().getSelectConfig().getSelect_text()));
-        rechargePresenter.getRechargeList(requestParams, 1, Constant.per_pager);
+        changDutyPresenter.getChangeDutyList(requestParams, 1, Constant.per_pager);
     }
 
     @Override
@@ -230,7 +226,7 @@ public class RechargeActivity extends BaseActivity implements NavigationView.OnN
                 break;
             case R.id.recharge_query:
                 GlobalDataUtil.getInstance().getSelectConfig().setSelect_text(et_search.getText().toString().trim());
-                requestRecharge();
+                requestChangeDuty();
                 break;
         }
     }
@@ -297,7 +293,7 @@ public class RechargeActivity extends BaseActivity implements NavigationView.OnN
 
     @Override
     public void OnRequestData(Station station) {
-        requestRecharge();
+        requestChangeDuty();
         List<Station.RootBean.DataBean> dataBeanList = station.getRoot().getData();
         if (dataBeanList != null && dataBeanList.size() > 0 && !mNavigationView.getMenu().hasVisibleItems()) {
             for (int i = 0; i < dataBeanList.size(); i++) {
@@ -330,13 +326,6 @@ public class RechargeActivity extends BaseActivity implements NavigationView.OnN
 
     }
 
-    @Override
-    public void OnRequestData(ReCharge reCharge) {
-        if (reCharge != null && reCharge.getRoot() != null && reCharge.getRoot().getData() != null && reCharge.getRoot().getData().size() > 0) {
-            initRechargePager(Integer.valueOf(reCharge.getRoot().getTotal()), reCharge.getRoot().getData(),reCharge.getRoot().getSum(), requestParams);
-        }
-    }
-
     private void toggle() {
         int drawerLockMode = mDrawerLayout.getDrawerLockMode(GravityCompat.START);
         if (mDrawerLayout.isDrawerVisible(GravityCompat.START)
@@ -347,27 +336,27 @@ public class RechargeActivity extends BaseActivity implements NavigationView.OnN
         }
     }
 
-    public void initRechargePager(int totalPage, List<ReCharge.RootBean.DataBean> dataBeanList, ReCharge.RootBean.SumBean sumBean,Map<String, String> params) {
+    public void initRechargePager(int totalPage, List<Banci.RootBean.DataBean> dataBeanList, Banci.RootBean.SumBean sumBean,Map<String, String> params) {
         L.i(getClass().getSimpleName(), "Current total page:" + totalPage);
         mWidgetPage.setPageCurrent(0);
         mWidgetPage.setPageTotal(totalPage);
-        mWidgetRechargePager.setSumBean(sumBean);
-        mWidgetRechargePager.initPager(totalPage, dataBeanList, params);
+        widgetChangeDutyPager.setSumBean(sumBean);
+        widgetChangeDutyPager.initPager(totalPage, dataBeanList, params);
     }
 
     @Override
     public void onPrePageClick(int before, int current) {
-        mWidgetRechargePager.setCurrentItem(current);
+        widgetChangeDutyPager.setCurrentItem(current);
     }
 
     @Override
     public void onNextPageClick(int before, int current) {
-        mWidgetRechargePager.setCurrentItem(current);
+        widgetChangeDutyPager.setCurrentItem(current);
     }
 
     @Override
     public void onFirstPageClick(int before, int current) {
-        mWidgetRechargePager.setCurrentItem(current);
+        widgetChangeDutyPager.setCurrentItem(current);
         mWidgetPage.setPrePressed(false);
         mWidgetPage.setNextPressed(false);
     }
@@ -386,9 +375,16 @@ public class RechargeActivity extends BaseActivity implements NavigationView.OnN
 
     @Override
     public void onPagerSelected(int i, boolean b) {
-        mWidgetRechargePager.runLayoutAnimation();
+        widgetChangeDutyPager.runLayoutAnimation();
         mWidgetPage.setPageCurrent(i);
         mWidgetPage.setPrePressed(false);
         mWidgetPage.setNextPressed(false);
+    }
+
+    @Override
+    public void OnRequestData(Banci banci) {
+        if (banci != null && banci.getRoot() != null && banci.getRoot().getData() != null && banci.getRoot().getData().size() > 0) {
+            initRechargePager(Integer.valueOf(banci.getRoot().getTotal()), banci.getRoot().getData(),banci.getRoot().getSum(), requestParams);
+        }
     }
 }

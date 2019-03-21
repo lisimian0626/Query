@@ -26,6 +26,15 @@
         <activity android:name=".activity.RechargeActivity"
             android:screenOrientation="landscape"
             ></activity>
+        <activity android:name=".activity.CashActivity"
+            android:screenOrientation="landscape"
+            ></activity>
+        <activity android:name=".activity.GasActivity"
+            android:screenOrientation="landscape"
+            ></activity>
+        <activity android:name=".activity.ChangDutyActivity"
+            android:screenOrientation="landscape"
+            ></activity>
     </application>
 
 </manifest>

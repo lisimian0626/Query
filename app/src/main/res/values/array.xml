@@ -1,13 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="spinner_recharge">
-        <item> 请选择 </item>
-        <item> 卡类型 </item>
-        <item> 卡外码 </item>
-        <item> 车牌号 </item>
-        <item> 持卡人 </item>
+        <item>请选择</item>
+        <item>卡类型</item>
+        <item>卡外码</item>
+        <item>车牌号</item>
+        <item>持卡 </item>
         <item>所属公司</item>
         <item>充值类型</item>
         <item>支付方式</item>
     </string-array>
+
+    <string-array name="spinner_statistics">
+        <item>请选择</item>
+        <item>班次</item>
+    </string-array>
+
+    <string-array name="spinner_gas">
+        <item>请选择</item>
+        <item>班次</item>
+        <item>车牌号</item>
+        <item>枪号</item>
+        <item>卡类型</item>
+        <item>卡外码</item>
+        <item>加气工</item>
+        <item>加气量</item>
+    </string-array>
+
+    <string-array name="spinner_nomal">
+        <item>请选择</item>
+    </string-array>
 </resources>
+
+

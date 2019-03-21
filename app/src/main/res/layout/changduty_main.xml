@@ -90,7 +90,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:entries="@array/spinner_recharge"></Spinner>
+                android:entries="@array/spinner_statistics"></Spinner>
 
             <EditText
                 android:id="@+id/et_recharge_search"
@@ -130,8 +130,8 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <com.beidousat.querydata.widget.WidgetRechargePager
-                android:id="@+id/rechargePaper"
+            <com.beidousat.querydata.widget.WidgetChangeDutyPager
+                android:id="@+id/change_duty_pager"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="5" />

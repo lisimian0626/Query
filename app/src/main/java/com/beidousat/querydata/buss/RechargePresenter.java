@@ -36,7 +36,7 @@ public class RechargePresenter extends CommonPresenter<RechargeConstract.View> i
         properties.put("arg6", cur_page);
         properties.put("arg7", pre_page);
         L.test("properties:"+properties.toString());
-        List<Object> getParamters =  SoapHelper.getInstance().getParams(Constant.getRechargeList,Constant.nameSpace,properties);
+        List<Object> getParamters =  SoapHelper.getInstance().getParams(Constant.GETRECHARGELIST,Constant.nameSpace,properties);
         if(getParamters!=null){
             soapHeaderMap = (Map<String, String>) getParamters.get(0);
             mBody = new String((byte[]) getParamters.get(1));
