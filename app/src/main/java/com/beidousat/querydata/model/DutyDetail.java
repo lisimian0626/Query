@@ -1,26 +1,23 @@
 package com.beidousat.querydata.model;
 
-import android.text.TextUtils;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Banci {
+public class DutyDetail {
 
     /**
-     * root : {"data":[{"status":"0","banci":"3","startTime":"2019-02-20 17:59:00.0","endTime":"2019-03-08 09:42:00.0","theoryQuantity":"54.98","sumQuantity":"54.98","cardQuantity":"50.07","accountQuantity":"0.00","otherQuantity":"0.00","diffQuantity":"0.00","dutyName":"大大","userName":"娃娃"},{"status":"0","banci":"2","startTime":"2019-02-20 11:49:00.0","endTime":"2019-02-20 17:59:00.0","theoryQuantity":"120.98","sumQuantity":"120.98","cardQuantity":"87.50","accountQuantity":"0.00","otherQuantity":"33.48","diffQuantity":"0.00","dutyName":"娃娃","userName":"12"},{"status":"0","banci":"1","startTime":"2019-02-19 10:41:00.0","endTime":"2019-02-20 11:48:00.0","theoryQuantity":"20048.15","sumQuantity":"28.57","cardQuantity":"23.43","accountQuantity":"0.00","otherQuantity":"5.14","diffQuantity":"-20019.58","dutyName":"娃娃","userName":"123"}],"sum":{"sumtheoryQuantity":"20224.11","sumsumQuantity":"204.53","sumsellQuantity":"4.91","sumcardQuantity":"161.00","sumaccountQuantity":"0.00","sumotherQuantity":"38.62","sumdiffQuantity":"-20019.58"},"total":"1","response":{"errcode":"0"}}
+     * root : {"data":[{"gasNo":"01","theoryQuantity":"0.00","sumQuantity":"0.00","sellQuantity":"0.00","cardQuantity":"0.00","accountQuantity":"0.00","otherQuantity":"0.00","diffQuantity":"0.00"},{"gasNo":"02","theoryQuantity":"54.98","sumQuantity":"54.98","sellQuantity":"4.91","cardQuantity":"50.07","accountQuantity":"0.00","otherQuantity":"0.00","diffQuantity":"0.00"},{"gasNo":"合计","theoryQuantity":"54.98","sumQuantity":"54.98","sellQuantity":"4.91","cardQuantity":"50.07","accountQuantity":"0.00","otherQuantity":"0.00","diffQuantity":"0.00"}],"sum":{"sumtheoryQuantity":"109.96","sumsumQuantity":"109.96","sumsellQuantity":"9.82","sumcardQuantity":"100.14","sumaccountQuantity":"0.00","sumotherQuantity":"0.00","sumdiffQuantity":"0.00"},"total":"3","response":{"errcode":"0"}}
      */
 
     private RootBean root;
 
-    public static List<Banci> arrayBanciFromData(String str) {
+    public static List<DutyDetail> arrayDutyDetailFromData(String str) {
 
-        Type listType = new TypeToken<ArrayList<Banci>>() {
+        Type listType = new TypeToken<ArrayList<DutyDetail>>() {
         }.getType();
 
         return new Gson().fromJson(str, listType);
@@ -36,9 +33,9 @@ public class Banci {
 
     public static class RootBean {
         /**
-         * data : [{"status":"0","banci":"3","startTime":"2019-02-20 17:59:00.0","endTime":"2019-03-08 09:42:00.0","theoryQuantity":"54.98","sumQuantity":"54.98","cardQuantity":"50.07","accountQuantity":"0.00","otherQuantity":"0.00","diffQuantity":"0.00","dutyName":"大大","userName":"娃娃"},{"status":"0","banci":"2","startTime":"2019-02-20 11:49:00.0","endTime":"2019-02-20 17:59:00.0","theoryQuantity":"120.98","sumQuantity":"120.98","cardQuantity":"87.50","accountQuantity":"0.00","otherQuantity":"33.48","diffQuantity":"0.00","dutyName":"娃娃","userName":"12"},{"status":"0","banci":"1","startTime":"2019-02-19 10:41:00.0","endTime":"2019-02-20 11:48:00.0","theoryQuantity":"20048.15","sumQuantity":"28.57","cardQuantity":"23.43","accountQuantity":"0.00","otherQuantity":"5.14","diffQuantity":"-20019.58","dutyName":"娃娃","userName":"123"}]
-         * sum : {"sumtheoryQuantity":"20224.11","sumsumQuantity":"204.53","sumsellQuantity":"4.91","sumcardQuantity":"161.00","sumaccountQuantity":"0.00","sumotherQuantity":"38.62","sumdiffQuantity":"-20019.58"}
-         * total : 1
+         * data : [{"gasNo":"01","theoryQuantity":"0.00","sumQuantity":"0.00","sellQuantity":"0.00","cardQuantity":"0.00","accountQuantity":"0.00","otherQuantity":"0.00","diffQuantity":"0.00"},{"gasNo":"02","theoryQuantity":"54.98","sumQuantity":"54.98","sellQuantity":"4.91","cardQuantity":"50.07","accountQuantity":"0.00","otherQuantity":"0.00","diffQuantity":"0.00"},{"gasNo":"合计","theoryQuantity":"54.98","sumQuantity":"54.98","sellQuantity":"4.91","cardQuantity":"50.07","accountQuantity":"0.00","otherQuantity":"0.00","diffQuantity":"0.00"}]
+         * sum : {"sumtheoryQuantity":"109.96","sumsumQuantity":"109.96","sumsellQuantity":"9.82","sumcardQuantity":"100.14","sumaccountQuantity":"0.00","sumotherQuantity":"0.00","sumdiffQuantity":"0.00"}
+         * total : 3
          * response : {"errcode":"0"}
          */
 
@@ -89,13 +86,13 @@ public class Banci {
 
         public static class SumBean {
             /**
-             * sumtheoryQuantity : 20224.11
-             * sumsumQuantity : 204.53
-             * sumsellQuantity : 4.91
-             * sumcardQuantity : 161.00
+             * sumtheoryQuantity : 109.96
+             * sumsumQuantity : 109.96
+             * sumsellQuantity : 9.82
+             * sumcardQuantity : 100.14
              * sumaccountQuantity : 0.00
-             * sumotherQuantity : 38.62
-             * sumdiffQuantity : -20019.58
+             * sumotherQuantity : 0.00
+             * sumdiffQuantity : 0.00
              */
 
             private String sumtheoryQuantity;
@@ -106,12 +103,14 @@ public class Banci {
             private String sumotherQuantity;
             private String sumdiffQuantity;
 
-            public Banci.RootBean.DataBean toDataBean(){
-                Banci.RootBean.DataBean dataBean=new Banci.RootBean.DataBean();
+            public DutyDetail.RootBean.DataBean toDataBean(){
+                DutyDetail.RootBean.DataBean dataBean=new DutyDetail.RootBean.DataBean();
                 dataBean.setTheoryQuantity(getSumtheoryQuantity());
                 dataBean.setSumQuantity(getSumsumQuantity());
                 dataBean.setSellQuantity(getSumsellQuantity());
                 dataBean.setCardQuantity(getSumcardQuantity());
+                dataBean.setAccountQuantity(getSumaccountQuantity());
+                dataBean.setOtherQuantity(getSumotherQuantity());
                 dataBean.setDiffQuantity(getSumdiffQuantity());
                 return dataBean;
             }
@@ -205,26 +204,19 @@ public class Banci {
             }
         }
 
-        public static class DataBean implements Serializable{
+        public static class DataBean {
             /**
-             * status : 0
-             * banci : 3
-             * startTime : 2019-02-20 17:59:00.0
-             * endTime : 2019-03-08 09:42:00.0
-             * theoryQuantity : 54.98
-             * sumQuantity : 54.98
-             * cardQuantity : 50.07
+             * gasNo : 01
+             * theoryQuantity : 0.00
+             * sumQuantity : 0.00
+             * sellQuantity : 0.00
+             * cardQuantity : 0.00
              * accountQuantity : 0.00
              * otherQuantity : 0.00
              * diffQuantity : 0.00
-             * dutyName : 大大
-             * userName : 娃娃
              */
 
-            private String status;
-            private String banci;
-            private String startTime;
-            private String endTime;
+            private String gasNo;
             private String theoryQuantity;
             private String sumQuantity;
             private String sellQuantity;
@@ -232,25 +224,7 @@ public class Banci {
             private String accountQuantity;
             private String otherQuantity;
             private String diffQuantity;
-            private String dutyName;
-            private String userName;
 
-            public DataBean() {
-            }
-
-            public DataBean(String status, String banci, String startTime, String endTime, String theoryQuantity, String sumQuantity, String sellQuantity, String cardQuantity,String diffQuantity, String dutyName, String userName) {
-                this.status = status;
-                this.banci = banci;
-                this.startTime = startTime;
-                this.endTime = endTime;
-                this.theoryQuantity = theoryQuantity;
-                this.sumQuantity = sumQuantity;
-                this.sellQuantity = sellQuantity;
-                this.cardQuantity = cardQuantity;
-                this.diffQuantity = diffQuantity;
-                this.dutyName = dutyName;
-                this.userName = userName;
-            }
 
             public static List<DataBean> arrayDataBeanFromData(String str) {
 
@@ -260,56 +234,26 @@ public class Banci {
                 return new Gson().fromJson(str, listType);
             }
 
-            public String getStatus() {
-                return status;
+            public DataBean() {
             }
 
-            public void setStatus(String status) {
-                this.status = status;
+            public DataBean(String gasNo, String theoryQuantity, String sumQuantity, String sellQuantity, String cardQuantity, String accountQuantity, String otherQuantity, String diffQuantity) {
+                this.gasNo = gasNo;
+                this.theoryQuantity = theoryQuantity;
+                this.sumQuantity = sumQuantity;
+                this.sellQuantity = sellQuantity;
+                this.cardQuantity = cardQuantity;
+                this.accountQuantity = accountQuantity;
+                this.otherQuantity = otherQuantity;
+                this.diffQuantity = diffQuantity;
             }
 
-            public String getBanci() {
-                return banci;
+            public String getGasNo() {
+                return gasNo;
             }
 
-            public void setBanci(String banci) {
-                this.banci = banci;
-            }
-
-            public String getStartTime() {
-                if(!TextUtils.isEmpty(startTime)){
-                    String str;
-                    try {
-                        str=startTime.substring(0,startTime.lastIndexOf(":"));
-                    }catch (Exception e){
-                        e.printStackTrace();
-                        return startTime;
-                    }
-                    return str;
-                }
-                return startTime;
-            }
-
-            public void setStartTime(String startTime) {
-                this.startTime = startTime;
-            }
-
-            public String getEndTime() {
-                if(!TextUtils.isEmpty(endTime)){
-                    String str;
-                    try {
-                        str=endTime.substring(0,endTime.lastIndexOf(":"));
-                    }catch (Exception e){
-                        e.printStackTrace();
-                        return endTime;
-                    }
-                    return str;
-                }
-                return endTime;
-            }
-
-            public void setEndTime(String endTime) {
-                this.endTime = endTime;
+            public void setGasNo(String gasNo) {
+                this.gasNo = gasNo;
             }
 
             public String getTheoryQuantity() {
@@ -326,6 +270,14 @@ public class Banci {
 
             public void setSumQuantity(String sumQuantity) {
                 this.sumQuantity = sumQuantity;
+            }
+
+            public String getSellQuantity() {
+                return sellQuantity;
+            }
+
+            public void setSellQuantity(String sellQuantity) {
+                this.sellQuantity = sellQuantity;
             }
 
             public String getCardQuantity() {
@@ -358,30 +310,6 @@ public class Banci {
 
             public void setDiffQuantity(String diffQuantity) {
                 this.diffQuantity = diffQuantity;
-            }
-
-            public String getDutyName() {
-                return dutyName;
-            }
-
-            public void setDutyName(String dutyName) {
-                this.dutyName = dutyName;
-            }
-
-            public String getUserName() {
-                return userName;
-            }
-
-            public void setUserName(String userName) {
-                this.userName = userName;
-            }
-
-            public String getSellQuantity() {
-                return sellQuantity;
-            }
-
-            public void setSellQuantity(String sellQuantity) {
-                this.sellQuantity = sellQuantity;
             }
         }
     }

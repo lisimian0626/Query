@@ -2,6 +2,7 @@ package com.beidousat.querydata.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +22,11 @@ public class AdtChangDuty extends RecyclerView.Adapter<AdtChangDuty.ViewHolder> 
     private Context mContext;
     private LayoutInflater mInflater;
     private List<Banci.RootBean.DataBean> mData = new ArrayList<>();
+    public static interface ChangDutyListener {
+        void getDetail(Banci.RootBean.DataBean dataBean);
 
+    }
+    private ChangDutyListener changDutyListener;
     public AdtChangDuty(Context context) {
         mContext = context;
         mInflater = LayoutInflater.from(context);
@@ -29,7 +34,7 @@ public class AdtChangDuty extends RecyclerView.Adapter<AdtChangDuty.ViewHolder> 
 
 
     public void setData(List<Banci.RootBean.DataBean> data) {
-        data.add(0, new Banci.RootBean.DataBean("状态", "班次", "接班时间", "交班时间", "理论", "实际", "现金", "IC卡", "记账", "其他", "差额", "班长", "收款员"));
+        data.add(0, new Banci.RootBean.DataBean("站点", "班次", "接班时间", "交班时间", "理论", "实际", "现金", "IC卡", "差额", "班长", "收款员"));
         this.mData = data;
     }
 
@@ -39,8 +44,12 @@ public class AdtChangDuty extends RecyclerView.Adapter<AdtChangDuty.ViewHolder> 
         }
     }
 
+    public void setChangDutyListener(ChangDutyListener changDutyListener) {
+        this.changDutyListener = changDutyListener;
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView status;
+        public TextView station;
         public TextView dutyID;
         public TextView startTime;
         public TextView endTime;
@@ -48,8 +57,6 @@ public class AdtChangDuty extends RecyclerView.Adapter<AdtChangDuty.ViewHolder> 
         public TextView sumQuantity;
         public TextView sellQuantity;
         public TextView cardQuantity;
-        public TextView accountQuantity;
-        public TextView otherQuantity;
         public TextView diffQuantity;
         public TextView dutyName;
         public TextView userName;
@@ -68,7 +75,7 @@ public class AdtChangDuty extends RecyclerView.Adapter<AdtChangDuty.ViewHolder> 
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View view = mInflater.inflate(R.layout.list_item_changduty, viewGroup, false);
         ViewHolder viewHolder = new ViewHolder(view);
-        viewHolder.status = view.findViewById(R.id.item_duty_status);
+        viewHolder.station = view.findViewById(R.id.item_duty_station);
         viewHolder.dutyID = view.findViewById(R.id.item_duty_dutyID);
         viewHolder.startTime = view.findViewById(R.id.item_duty_startTime);
         viewHolder.endTime = view.findViewById(R.id.item_duty_endTime);
@@ -76,11 +83,9 @@ public class AdtChangDuty extends RecyclerView.Adapter<AdtChangDuty.ViewHolder> 
         viewHolder.sumQuantity = view.findViewById(R.id.item_duty_sumQuantity);
         viewHolder.sellQuantity = view.findViewById(R.id.item_duty_sellQuantity);
         viewHolder.cardQuantity = view.findViewById(R.id.item_duty_cardQuantity);
-        viewHolder.accountQuantity = view.findViewById(R.id.item_duty_accountQuantity);
-        viewHolder.otherQuantity = view.findViewById(R.id.item_recharge_time);
-        viewHolder.diffQuantity = view.findViewById(R.id.item_recharge_time);
-        viewHolder.dutyName = view.findViewById(R.id.item_recharge_time);
-        viewHolder.userName = view.findViewById(R.id.item_recharge_time);
+        viewHolder.diffQuantity = view.findViewById(R.id.item_duty_diffQuantity);
+        viewHolder.dutyName = view.findViewById(R.id.item_duty_dutyName);
+        viewHolder.userName = view.findViewById(R.id.item_duty_userName);
         return viewHolder;
     }
 
@@ -88,8 +93,14 @@ public class AdtChangDuty extends RecyclerView.Adapter<AdtChangDuty.ViewHolder> 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Banci.RootBean.DataBean dataBean = mData.get(position);
-        if (position == 1) {
-            holder.status.setBackgroundResource(R.drawable.text_bg_stroke_yellow);
+        if(position==0){
+            holder.theoryQuantity.setGravity(Gravity.CENTER);
+            holder.sumQuantity.setGravity(Gravity.CENTER);
+            holder.sellQuantity.setGravity(Gravity.CENTER);
+            holder.cardQuantity.setGravity(Gravity.CENTER);
+            holder.diffQuantity.setGravity(Gravity.CENTER);
+        }else if (position == 1) {
+            holder.station.setBackgroundResource(R.drawable.text_bg_stroke_yellow);
             holder.dutyID.setBackgroundResource(R.drawable.text_bg_stroke_yellow);
             holder.startTime.setBackgroundResource(R.drawable.text_bg_stroke_yellow);
             holder.endTime.setBackgroundResource(R.drawable.text_bg_stroke_yellow);
@@ -97,14 +108,20 @@ public class AdtChangDuty extends RecyclerView.Adapter<AdtChangDuty.ViewHolder> 
             holder.sumQuantity.setBackgroundResource(R.drawable.text_bg_stroke_yellow);
             holder.sellQuantity.setBackgroundResource(R.drawable.text_bg_stroke_yellow);
             holder.cardQuantity.setBackgroundResource(R.drawable.text_bg_stroke_yellow);
-            holder.accountQuantity.setBackgroundResource(R.drawable.text_bg_stroke_yellow);
-            holder.otherQuantity.setBackgroundResource(R.drawable.text_bg_stroke_yellow);
             holder.diffQuantity.setBackgroundResource(R.drawable.text_bg_stroke_yellow);
             holder.dutyName.setBackgroundResource(R.drawable.text_bg_stroke_yellow);
             holder.userName.setBackgroundResource(R.drawable.text_bg_stroke_yellow);
 
         }
-        holder.status.setText(dataBean.getStatus());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(changDutyListener!=null){
+                    changDutyListener.getDetail(dataBean);
+                }
+            }
+        });
+        holder.station.setText(dataBean.getStatus());
         holder.dutyID.setText(dataBean.getBanci());
         holder.startTime.setText(dataBean.getStartTime());
         holder.endTime.setText(dataBean.getEndTime());
@@ -112,8 +129,6 @@ public class AdtChangDuty extends RecyclerView.Adapter<AdtChangDuty.ViewHolder> 
         holder.sumQuantity.setText(dataBean.getSumQuantity());
         holder.sellQuantity.setText(dataBean.getSellQuantity());
         holder.cardQuantity.setText(dataBean.getCardQuantity());
-        holder.accountQuantity.setText(dataBean.getAccountQuantity());
-        holder.otherQuantity.setText(dataBean.getOtherQuantity());
         holder.diffQuantity.setText(dataBean.getDiffQuantity());
         holder.dutyName.setText(dataBean.getDutyName());
         holder.userName.setText(dataBean.getUserName());

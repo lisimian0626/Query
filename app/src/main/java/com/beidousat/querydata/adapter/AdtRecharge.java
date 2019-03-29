@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,7 +76,10 @@ public class AdtRecharge extends RecyclerView.Adapter<AdtRecharge.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final ReCharge.RootBean.DataBean dataBean = mData.get(position);
-        if(position==1){
+        if(position==0){
+            holder.recharge_add.setGravity(Gravity.CENTER);
+            holder.recharge_zeng.setGravity(Gravity.CENTER);
+        }else if(position==1){
             holder.plateNum.setBackgroundResource(R.drawable.text_bg_stroke_yellow);
             holder.owner.setBackgroundResource(R.drawable.text_bg_stroke_yellow);
             holder.company.setBackgroundResource(R.drawable.text_bg_stroke_yellow);

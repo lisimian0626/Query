@@ -34,4 +34,13 @@
     <string name="pre_page">上一页</string>
     <string name="next_page">下一页</string>
 
+    <string name="userNameNull">请输入用户名！</string>
+    <string name="pwdNull">请输入密码！</string>
+    <string name="loginFail">登录失败,请联系管理员！</string>
+    <string name="loginSucced">登录成功！</string>
+
+    <string name="banci">班次：</string>
+    <string name="dutyName">班长：</string>
+    <string name="userName">收款员：</string>
+    <string name="dismiss">关闭</string>
 </resources>

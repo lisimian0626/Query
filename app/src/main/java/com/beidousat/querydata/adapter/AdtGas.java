@@ -2,6 +2,7 @@ package com.beidousat.querydata.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,7 +80,11 @@ public class AdtGas extends RecyclerView.Adapter<AdtGas.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Gas.RootBean.DataBean dataBean = mData.get(position);
-        if(position==1){
+        if(position==0){
+            holder.quantity.setGravity(Gravity.CENTER);
+            holder.price.setGravity(Gravity.CENTER);
+            holder.money.setGravity(Gravity.CENTER);
+        }else if(position==1){
             holder.dutyID.setBackgroundResource(R.drawable.text_bg_stroke_yellow);
             holder.startTime.setBackgroundResource(R.drawable.text_bg_stroke_yellow);
             holder.carNo.setBackgroundResource(R.drawable.text_bg_stroke_yellow);

@@ -1,7 +1,11 @@
 package com.beidousat.querydata.widget;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.util.AttributeSet;
 import android.widget.Toast;
@@ -14,6 +18,7 @@ import com.beidousat.querydata.buss.ChangDutyPresenter;
 import com.beidousat.querydata.buss.RechargeConstract;
 import com.beidousat.querydata.buss.RechargePresenter;
 import com.beidousat.querydata.common.Constant;
+import com.beidousat.querydata.fragment.FmDutyDetail;
 import com.beidousat.querydata.model.Banci;
 import com.beidousat.querydata.model.ReCharge;
 import com.beidousat.widgetlibs.recycler.GridRecyclerView;
@@ -27,8 +32,8 @@ import java.util.Map;
 /**
  * Created by J Wong on 2015/12/17 18:01.
  */
-public class WidgetChangeDutyPage extends GridRecyclerView  implements BanciConstract.View{
-
+public class WidgetChangeDutyPage extends GridRecyclerView  implements BanciConstract.View,AdtChangDuty.ChangDutyListener{
+    private Context mContext;
     private AdtChangDuty mAdapter;
     private ChangDutyPresenter changDutyPresenter;
     public WidgetChangeDutyPage(Context context) {
@@ -64,6 +69,7 @@ public class WidgetChangeDutyPage extends GridRecyclerView  implements BanciCons
         addItemDecoration(verDivider);
 
         mAdapter = new AdtChangDuty(getContext());
+        mAdapter.setChangDutyListener(this);
         setVerticalScrollBarEnabled(false);
         setAdapter(mAdapter);
     }
@@ -116,6 +122,17 @@ public class WidgetChangeDutyPage extends GridRecyclerView  implements BanciCons
             mAdapter.notifyDataSetChanged();
         }
     }
+
+    @Override
+    public void getDetail(Banci.RootBean.DataBean dataBean) {
+        FmDutyDetail fmDutyDetail=new FmDutyDetail();
+        Bundle bundle=new Bundle();
+        bundle.putSerializable("dataBean",dataBean);
+        fmDutyDetail.setArguments(bundle);
+        FragmentActivity fragmentActivity=(FragmentActivity)getContext();
+        fmDutyDetail.show(fragmentActivity.getSupportFragmentManager(),"detail");
+    }
+
 
 //    private void init() {
 //        mAdapter = new AdtSinger(getContext());

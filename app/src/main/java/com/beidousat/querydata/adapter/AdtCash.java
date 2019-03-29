@@ -2,6 +2,7 @@ package com.beidousat.querydata.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,6 +81,13 @@ public class AdtCash extends RecyclerView.Adapter<AdtCash.ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Cash.RootBean.DataBean dataBean = mData.get(position);
+        if(position==0){
+            holder.sellCash.setGravity(Gravity.CENTER);
+            holder.sellMoney.setGravity(Gravity.CENTER);
+            holder.chargeMoney1.setGravity(Gravity.CENTER);
+            holder.refundMoney.setGravity(Gravity.CENTER);
+            holder.reissueMoney.setGravity(Gravity.CENTER);
+        }
         if(position==1){
             holder.dutyID.setBackgroundResource(R.drawable.text_bg_stroke_yellow);
             holder.startTime.setBackgroundResource(R.drawable.text_bg_stroke_yellow);

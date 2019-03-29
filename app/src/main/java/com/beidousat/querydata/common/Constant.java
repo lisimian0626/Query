@@ -9,6 +9,7 @@ public class Constant {
     public static String Key = "SKThd2019";
     public static int per_pager = 10;
 
+    public static String LOGIN = "Login";
     public static String GETSTATIONLIST = "GetStationList";
     public static String GETRECHARGELIST = "GetRechargeList";
     public static String GETCHANGEDUTYLIST = "GetChangeDutyList";

@@ -4,62 +4,19 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
+    android:gravity="center"
     >
     <TextView
-        android:id="@+id/item_duty_station"
+        android:id="@+id/item_detail_gasNo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1.2"
-        android:text="111"
-        android:gravity="center"
-        android:background="@drawable/text_bg_stroke"
-        />
-    <TextView
-        android:id="@+id/item_duty_dutyID"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.8"
-        android:gravity="center"
-        android:background="@drawable/text_bg_stroke"
-        />
-    <TextView
-        android:id="@+id/item_duty_startTime"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="2"
+        android:layout_weight="0.5"
         android:singleLine="true"
         android:gravity="center"
         android:background="@drawable/text_bg_stroke"
         />
     <TextView
-        android:id="@+id/item_duty_endTime"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="2"
-        android:singleLine="true"
-        android:gravity="center"
-        android:background="@drawable/text_bg_stroke"
-        />
-    <TextView
-        android:id="@+id/item_duty_theoryQuantity"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1.5"
-        android:singleLine="true"
-        android:gravity="right"
-        android:background="@drawable/text_bg_stroke"
-        />
-    <TextView
-        android:id="@+id/item_duty_sumQuantity"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1.5"
-        android:singleLine="true"
-        android:gravity="right"
-        android:background="@drawable/text_bg_stroke"
-        />
-    <TextView
-        android:id="@+id/item_duty_sellQuantity"
+        android:id="@+id/item_detail_theoryQuantity"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -68,7 +25,7 @@
         android:background="@drawable/text_bg_stroke"
         />
     <TextView
-        android:id="@+id/item_duty_cardQuantity"
+        android:id="@+id/item_detail_sumQuantity"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -77,31 +34,48 @@
         android:background="@drawable/text_bg_stroke"
         />
     <TextView
-        android:id="@+id/item_duty_diffQuantity"
+        android:id="@+id/item_detail_sellQuantity"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1.5"
+        android:layout_weight="1"
         android:singleLine="true"
         android:gravity="right"
         android:background="@drawable/text_bg_stroke"
         />
     <TextView
-        android:id="@+id/item_duty_dutyName"
+        android:id="@+id/item_detail_cardQuantity"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:singleLine="true"
-        android:gravity="center"
+        android:gravity="right"
         android:background="@drawable/text_bg_stroke"
         />
     <TextView
-        android:id="@+id/item_duty_userName"
+        android:id="@+id/item_detail_accountQuantity"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:singleLine="true"
-        android:gravity="center"
+        android:gravity="right"
         android:background="@drawable/text_bg_stroke"
         />
-
+    <TextView
+        android:id="@+id/item_detail_otherQuantity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:singleLine="true"
+        android:gravity="right"
+        android:background="@drawable/text_bg_stroke"
+        />
+    <TextView
+        android:id="@+id/item_detail_diffQuantity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:singleLine="true"
+        android:gravity="right"
+        android:background="@drawable/text_bg_stroke"
+        />
 </LinearLayout>

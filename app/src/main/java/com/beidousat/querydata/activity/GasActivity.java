@@ -385,6 +385,8 @@ public class GasActivity extends BaseActivity implements NavigationView.OnNaviga
     public void OnRequestData(Gas gas) {
         if (gas != null && gas.getRoot() != null && gas.getRoot().getData() != null && gas.getRoot().getData().size() > 0) {
             initGasPager(Integer.valueOf(gas.getRoot().getTotal()), gas.getRoot().getData(),gas.getRoot().getSum(), requestParams);
+        }else{
+            initGasPager(0,null,null,requestParams);
         }
     }
 }

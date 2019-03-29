@@ -63,10 +63,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public void showNormalDialog(String string) {
-        if(mProgressDlg!=null)
-            return;
-        mProgressDlg = MyPorgressDialog.createLoadingDialog(this,string);
-        mProgressDlg.setCancelable(true);
+        if(mProgressDlg==null) {
+            mProgressDlg = MyPorgressDialog.createLoadingDialog(this, string);
+            mProgressDlg.setCancelable(true);
+        }
         mProgressDlg.show();
 
     }

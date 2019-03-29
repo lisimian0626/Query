@@ -334,6 +334,8 @@ public class RechargeActivity extends BaseActivity implements NavigationView.OnN
     public void OnRequestData(ReCharge reCharge) {
         if (reCharge != null && reCharge.getRoot() != null && reCharge.getRoot().getData() != null && reCharge.getRoot().getData().size() > 0) {
             initRechargePager(Integer.valueOf(reCharge.getRoot().getTotal()), reCharge.getRoot().getData(),reCharge.getRoot().getSum(), requestParams);
+        }else{
+            initRechargePager(0,null,null,requestParams);
         }
     }
 

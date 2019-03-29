@@ -336,7 +336,7 @@ public class CashActivity extends BaseActivity implements NavigationView.OnNavig
         }
     }
 
-    public void initRechargePager(int totalPage, List<Cash.RootBean.DataBean> dataBeanList, Cash.RootBean.SumBean sumBean,Map<String, String> params) {
+    public void initCashPager(int totalPage, List<Cash.RootBean.DataBean> dataBeanList, Cash.RootBean.SumBean sumBean,Map<String, String> params) {
         L.i(getClass().getSimpleName(), "Current total page:" + totalPage);
         mWidgetPage.setPageCurrent(0);
         mWidgetPage.setPageTotal(totalPage);
@@ -384,7 +384,9 @@ public class CashActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     public void OnRequestData(Cash cash) {
         if (cash != null && cash.getRoot() != null && cash.getRoot().getData() != null && cash.getRoot().getData().size() > 0) {
-            initRechargePager(Integer.valueOf(cash.getRoot().getTotal()), cash.getRoot().getData(),cash.getRoot().getSum(), requestParams);
+            initCashPager(Integer.valueOf(cash.getRoot().getTotal()), cash.getRoot().getData(),cash.getRoot().getSum(), requestParams);
+        }else{
+            initCashPager(0,null,null,requestParams);
         }
     }
 }

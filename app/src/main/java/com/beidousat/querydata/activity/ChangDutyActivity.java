@@ -3,6 +3,7 @@ package com.beidousat.querydata.activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.beidousat.querydata.R;
+import com.beidousat.querydata.adapter.AdtChangDuty;
 import com.beidousat.querydata.base.BaseActivity;
 import com.beidousat.querydata.base.WidgetPage;
 import com.beidousat.querydata.buss.BanciConstract;
@@ -30,6 +32,7 @@ import com.beidousat.querydata.buss.StationConstract;
 import com.beidousat.querydata.buss.StationPresenter;
 import com.beidousat.querydata.common.Constant;
 import com.beidousat.querydata.common.GlobalDataUtil;
+import com.beidousat.querydata.fragment.FmDutyDetail;
 import com.beidousat.querydata.model.Banci;
 import com.beidousat.querydata.model.ReCharge;
 import com.beidousat.querydata.model.SelectConfig;
@@ -46,7 +49,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ChangDutyActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, StationConstract.View, BanciConstract.View,OnPageScrollListener, WidgetPage.OnPageChangedListener  {
+public class ChangDutyActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, StationConstract.View, BanciConstract.View,OnPageScrollListener, WidgetPage.OnPageChangedListener {
     DrawerLayout mDrawerLayout;
     Toolbar mToolbar;
     NavigationView mNavigationView;
@@ -336,7 +339,7 @@ public class ChangDutyActivity extends BaseActivity implements NavigationView.On
         }
     }
 
-    public void initRechargePager(int totalPage, List<Banci.RootBean.DataBean> dataBeanList, Banci.RootBean.SumBean sumBean,Map<String, String> params) {
+    public void initChangDutyPager(int totalPage, List<Banci.RootBean.DataBean> dataBeanList, Banci.RootBean.SumBean sumBean,Map<String, String> params) {
         L.i(getClass().getSimpleName(), "Current total page:" + totalPage);
         mWidgetPage.setPageCurrent(0);
         mWidgetPage.setPageTotal(totalPage);
@@ -384,7 +387,9 @@ public class ChangDutyActivity extends BaseActivity implements NavigationView.On
     @Override
     public void OnRequestData(Banci banci) {
         if (banci != null && banci.getRoot() != null && banci.getRoot().getData() != null && banci.getRoot().getData().size() > 0) {
-            initRechargePager(Integer.valueOf(banci.getRoot().getTotal()), banci.getRoot().getData(),banci.getRoot().getSum(), requestParams);
+            initChangDutyPager(Integer.valueOf(banci.getRoot().getTotal()), banci.getRoot().getData(),banci.getRoot().getSum(), requestParams);
+        }else{
+            initChangDutyPager(0,null,null,requestParams);
         }
     }
 }
