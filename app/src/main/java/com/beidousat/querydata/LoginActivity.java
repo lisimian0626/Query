@@ -15,6 +15,7 @@ import com.beidousat.querydata.buss.LoginPresenter;
 import com.beidousat.querydata.common.Constant;
 import com.beidousat.querydata.model.LoginInfo;
 import com.beidousat.querydata.utils.L;
+import com.beidousat.querydata.utils.PreferenceUtil;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -37,6 +38,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
            userName=findViewById(R.id.username);
            passWord=findViewById(R.id.passwd);
            login=findViewById(R.id.login);
+           userName.setText(PreferenceUtil.getString(this,"userName",""));
+           passWord.setText(PreferenceUtil.getString(this,"passWord",""));
+           if(!TextUtils.isEmpty(userName.getText().toString().trim())&&!TextUtils.isEmpty(passWord.getText().toString().trim())){
+               login();
+           }
     }
 
     @Override
@@ -68,14 +74,18 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
            }else if(TextUtils.isEmpty(passWord.getText().toString().trim())){
                Toast.makeText(LoginActivity.this,getText(R.string.pwdNull),Toast.LENGTH_SHORT).show();
            }else{
-               Map<String, String> requestParams=new HashMap<>();
-               requestParams.put("arg0",userName.getText().toString().trim());
-               requestParams.put("arg1",getMD5String(passWord.getText().toString().trim()));
-               requestParams.put("arg2", Constant.Key);
-               loginPresenter.login(requestParams);
+               login();
            }
            break;
        }
+    }
+
+    private void login() {
+        Map<String, String> requestParams=new HashMap<>();
+        requestParams.put("arg0",userName.getText().toString().trim());
+        requestParams.put("arg1",getMD5String(passWord.getText().toString().trim()));
+        requestParams.put("arg2", Constant.Key);
+        loginPresenter.login(requestParams);
     }
 
     private String getBase64String(String oldWord){
@@ -94,6 +104,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                  if(loginInfo!=null&&loginInfo.getRoot()!=null&&loginInfo.getRoot().getData()!=null){
                      if("1".equals(loginInfo.getRoot().getData().get(0).getIdresult())){
                          Toast.makeText(LoginActivity.this,getText(R.string.loginSucced),Toast.LENGTH_SHORT).show();
+                         PreferenceUtil.setString(this,"userName",userName.getText().toString().trim());
+                         PreferenceUtil.setString(this,"passWord",passWord.getText().toString().trim());
                          startActivity(new Intent(this, MainActivity.class));
                      }else{
                          Toast.makeText(LoginActivity.this,getText(R.string.loginFail),Toast.LENGTH_SHORT).show();

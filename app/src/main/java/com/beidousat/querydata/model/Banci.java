@@ -222,6 +222,7 @@ public class Banci {
              */
 
             private String status;
+            private String stationName;
             private String banci;
             private String startTime;
             private String endTime;
@@ -238,8 +239,8 @@ public class Banci {
             public DataBean() {
             }
 
-            public DataBean(String status, String banci, String startTime, String endTime, String theoryQuantity, String sumQuantity, String sellQuantity, String cardQuantity,String diffQuantity, String dutyName, String userName) {
-                this.status = status;
+            public DataBean(String stationName, String banci, String startTime, String endTime, String theoryQuantity, String sumQuantity, String sellQuantity, String cardQuantity,String diffQuantity, String dutyName, String userName) {
+                this.stationName = stationName;
                 this.banci = banci;
                 this.startTime = startTime;
                 this.endTime = endTime;
@@ -266,6 +267,14 @@ public class Banci {
 
             public void setStatus(String status) {
                 this.status = status;
+            }
+
+            public String getStationName() {
+                return stationName;
+            }
+
+            public void setStationName(String stationName) {
+                this.stationName = stationName;
             }
 
             public String getBanci() {

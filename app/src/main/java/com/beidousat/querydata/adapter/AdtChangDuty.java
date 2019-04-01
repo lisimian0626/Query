@@ -121,7 +121,7 @@ public class AdtChangDuty extends RecyclerView.Adapter<AdtChangDuty.ViewHolder> 
                 }
             }
         });
-        holder.station.setText(dataBean.getStatus());
+        holder.station.setText(dataBean.getStationName());
         holder.dutyID.setText(dataBean.getBanci());
         holder.startTime.setText(dataBean.getStartTime());
         holder.endTime.setText(dataBean.getEndTime());

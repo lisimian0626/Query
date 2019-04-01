@@ -35,12 +35,13 @@ public class FmDutyDetail extends DialogFragment implements DutyDetailConstract.
     private RecyclerView detail_content;
     private AdtChangDutyDetail adapter;
     private DutyDetailPresenter presenter;
-    private TextView tv_close,tv_banci,tv_dutyName,tv_userName;
+    private TextView tv_close, tv_banci, tv_dutyName, tv_userName;
     private Banci.RootBean.DataBean dataBean;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter=new DutyDetailPresenter(this);
+        presenter = new DutyDetailPresenter(this);
     }
 
     @Nullable
@@ -51,17 +52,17 @@ public class FmDutyDetail extends DialogFragment implements DutyDetailConstract.
 //        window.findViewById(android.R.id.content);//需要用android.R.id.content这个view
 //        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));//注意此处
 //        window.setLayout(1000, 600);//这2行,和上面的一样,注意顺序就行;
-        tv_close=view.findViewById(R.id.detail_tv_close);
-        tv_banci=view.findViewById(R.id.detail_banci);
-        tv_dutyName=view.findViewById(R.id.detail_dutyName);
-        tv_userName=view.findViewById(R.id.detail_userName);
+        tv_close = view.findViewById(R.id.detail_tv_close);
+        tv_banci = view.findViewById(R.id.detail_banci);
+        tv_dutyName = view.findViewById(R.id.detail_dutyName);
+        tv_userName = view.findViewById(R.id.detail_userName);
         tv_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dismiss();
             }
         });
-        detail_content=view.findViewById(R.id.detail_content);
+        detail_content = view.findViewById(R.id.detail_content);
         init();
         return view;
     }
@@ -74,31 +75,26 @@ public class FmDutyDetail extends DialogFragment implements DutyDetailConstract.
         detail_content.addItemDecoration(horDivider);
         adapter = new AdtChangDutyDetail(getActivity());
         detail_content.setAdapter(adapter);
-        dataBean= (Banci.RootBean.DataBean) getArguments().getSerializable("dataBean");
-        if(dataBean!=null){
+        dataBean = (Banci.RootBean.DataBean) getArguments().getSerializable("dataBean");
+        if (dataBean != null) {
             tv_banci.setText(dataBean.getBanci());
             tv_dutyName.setText(dataBean.getDutyName());
             tv_userName.setText(dataBean.getUserName());
-            if(!TextUtils.isEmpty(dataBean.getBanci())){
-                Map<String, String> requestParams=new HashMap<>();
-                requestParams.put("arg0", Constant.Key);
-                requestParams.put("arg1", GlobalDataUtil.getInstance().getSelectConfig().getStationName());
-                requestParams.put("arg2", dataBean.getBanci());
-                presenter.getDutyDetail(requestParams);
-            }
+            Map<String, String> requestParams = new HashMap<>();
+            requestParams.put("arg0", Constant.Key);
+            requestParams.put("arg1", dataBean.getStationName());
+            requestParams.put("arg2", dataBean.getBanci());
+            presenter.getDutyDetail(requestParams);
         }
-
 
 
     }
 
     @Override
     public void OnRequestData(DutyDetail dutyDetail) {
-        if(dutyDetail!=null&&dutyDetail.getRoot()!=null){
-            if(dutyDetail.getRoot().getData()!=null){
+        if (dutyDetail != null && dutyDetail.getRoot() != null) {
+            if (dutyDetail.getRoot().getData() != null) {
                 adapter.setData(dutyDetail.getRoot().getData());
-            }else if(dutyDetail.getRoot().getSum()!=null){
-                adapter.setSum(dutyDetail.getRoot().getSum());
             }
             adapter.notifyDataSetChanged();
         }
@@ -116,7 +112,7 @@ public class FmDutyDetail extends DialogFragment implements DutyDetailConstract.
 
     @Override
     public void onFeedBack(boolean success, String key, Object data) {
-        if (!success&&getActivity()!=null) {
+        if (!success && getActivity() != null) {
             Toast.makeText(getActivity(), getText(R.string.text_data_error), Toast.LENGTH_SHORT).show();
         }
     }

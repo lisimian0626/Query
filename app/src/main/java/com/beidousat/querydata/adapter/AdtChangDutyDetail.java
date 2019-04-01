@@ -87,16 +87,17 @@ public class AdtChangDutyDetail extends RecyclerView.Adapter<AdtChangDutyDetail.
             holder.accountQuantity.setGravity(Gravity.CENTER);
             holder.otherQuantity.setGravity(Gravity.CENTER);
             holder.diffQuantity.setGravity(Gravity.CENTER);
-        }else if (position == 1) {
-            holder.gasNo.setBackgroundResource(R.drawable.text_bg_stroke_yellow);
-            holder.theoryQuantity.setBackgroundResource(R.drawable.text_bg_stroke_yellow);
-            holder.sumQuantity.setBackgroundResource(R.drawable.text_bg_stroke_yellow);
-            holder.sellQuantity.setBackgroundResource(R.drawable.text_bg_stroke_yellow);
-            holder.cardQuantity.setBackgroundResource(R.drawable.text_bg_stroke_yellow);
-            holder.accountQuantity.setBackgroundResource(R.drawable.text_bg_stroke_yellow);
-            holder.otherQuantity.setBackgroundResource(R.drawable.text_bg_stroke_yellow);
-            holder.diffQuantity.setBackgroundResource(R.drawable.text_bg_stroke_yellow);
         }
+//        else if (position == 1) {
+//            holder.gasNo.setBackgroundResource(R.drawable.text_bg_stroke_yellow);
+//            holder.theoryQuantity.setBackgroundResource(R.drawable.text_bg_stroke_yellow);
+//            holder.sumQuantity.setBackgroundResource(R.drawable.text_bg_stroke_yellow);
+//            holder.sellQuantity.setBackgroundResource(R.drawable.text_bg_stroke_yellow);
+//            holder.cardQuantity.setBackgroundResource(R.drawable.text_bg_stroke_yellow);
+//            holder.accountQuantity.setBackgroundResource(R.drawable.text_bg_stroke_yellow);
+//            holder.otherQuantity.setBackgroundResource(R.drawable.text_bg_stroke_yellow);
+//            holder.diffQuantity.setBackgroundResource(R.drawable.text_bg_stroke_yellow);
+//        }
         holder.gasNo.setText(dataBean.getGasNo());
         holder.theoryQuantity.setText(dataBean.getTheoryQuantity());
         holder.sumQuantity.setText(dataBean.getSumQuantity());
