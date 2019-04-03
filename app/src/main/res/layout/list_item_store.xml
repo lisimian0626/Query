@@ -7,73 +7,83 @@
     android:gravity="center"
     >
     <TextView
-        android:id="@+id/item_gas_dutyID"
+        android:id="@+id/item_store_stationName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.5"
+        android:layout_weight="1"
+        android:gravity="center"
         android:background="@drawable/text_bg_stroke"
         />
     <TextView
-        android:id="@+id/item_gas_startTime"
+        android:id="@+id/item_store_checkTime"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="2"
+        android:gravity="center"
         android:background="@drawable/text_bg_stroke"
         />
     <TextView
-        android:id="@+id/item_gas_carNo"
+        android:id="@+id/item_store_L1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:gravity="right"
         android:background="@drawable/text_bg_stroke"
         />
     <TextView
-        android:id="@+id/item_gas_gasNo"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.5"
-        android:background="@drawable/text_bg_stroke"
-        />
-    <TextView
-        android:id="@+id/item_gas_quantity"
+        android:id="@+id/item_store_P1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:gravity="right"
         android:background="@drawable/text_bg_stroke"
         />
     <TextView
-        android:id="@+id/item_gas_price"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.5"
-        android:background="@drawable/text_bg_stroke"
-        />
-    <TextView
-        android:id="@+id/item_gas_money"
+        android:id="@+id/item_store_T1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:gravity="right"
         android:background="@drawable/text_bg_stroke"
         />
     <TextView
-        android:id="@+id/item_gas_cardType"
+        android:id="@+id/item_store_L2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:gravity="right"
         android:background="@drawable/text_bg_stroke"
         />
     <TextView
-        android:id="@+id/item_gas_workerName"
+        android:id="@+id/item_store_P2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:gravity="right"
         android:background="@drawable/text_bg_stroke"
         />
     <TextView
-        android:id="@+id/item_gas_uploadTime"
+        android:id="@+id/item_store_T2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="2"
+        android:layout_weight="1"
+        android:gravity="right"
+        android:background="@drawable/text_bg_stroke"
+        />
+    <TextView
+        android:id="@+id/item_store_NN"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="right"
+        android:background="@drawable/text_bg_stroke"
+        />
+    <TextView
+        android:id="@+id/item_store_W3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="right"
         android:background="@drawable/text_bg_stroke"
         />
 </LinearLayout>

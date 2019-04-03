@@ -8,6 +8,7 @@ import com.beidousat.querydata.activity.CashActivity;
 import com.beidousat.querydata.activity.ChangDutyActivity;
 import com.beidousat.querydata.activity.GasActivity;
 import com.beidousat.querydata.activity.RechargeActivity;
+import com.beidousat.querydata.activity.StoreActivity;
 import com.beidousat.querydata.base.BaseActivity;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
@@ -67,6 +68,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.main_gas:
                 startActivity(new Intent(this, GasActivity.class));
+                break;
+            case R.id.main_store:
+                startActivity(new Intent(this, StoreActivity.class));
                 break;
         }
     }

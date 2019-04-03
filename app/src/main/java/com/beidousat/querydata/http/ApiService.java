@@ -7,6 +7,7 @@ import com.beidousat.querydata.model.Gas;
 import com.beidousat.querydata.model.LoginInfo;
 import com.beidousat.querydata.model.ReCharge;
 import com.beidousat.querydata.model.Station;
+import com.beidousat.querydata.model.Store;
 
 import java.util.Map;
 
@@ -44,5 +45,5 @@ public interface ApiService {
     Observable<Gas> getGasList(@HeaderMap Map<String,String> headerMap, @Body String body);
 
     @POST("/wxjfeng/gasappPort")
-    Observable<ReCharge> getEquipmentList(@HeaderMap Map<String,String> headerMap, @Body String body);
+    Observable<Store> getEquipmentList(@HeaderMap Map<String,String> headerMap, @Body String body);
 }

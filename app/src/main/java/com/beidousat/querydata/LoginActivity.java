@@ -40,9 +40,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
            login=findViewById(R.id.login);
            userName.setText(PreferenceUtil.getString(this,"userName",""));
            passWord.setText(PreferenceUtil.getString(this,"passWord",""));
-           if(!TextUtils.isEmpty(userName.getText().toString().trim())&&!TextUtils.isEmpty(passWord.getText().toString().trim())){
-               login();
-           }
+
     }
 
     @Override
@@ -53,6 +51,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     @Override
     public void initData() {
        loginPresenter=new LoginPresenter(this);
+//        if(!TextUtils.isEmpty(userName.getText().toString().trim())&&!TextUtils.isEmpty(passWord.getText().toString().trim())){
+//            login();
+//        }
     }
 
     @Override
@@ -104,6 +105,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                  if(loginInfo!=null&&loginInfo.getRoot()!=null&&loginInfo.getRoot().getData()!=null){
                      if("1".equals(loginInfo.getRoot().getData().get(0).getIdresult())){
                          Toast.makeText(LoginActivity.this,getText(R.string.loginSucced),Toast.LENGTH_SHORT).show();
+                         finish();
                          PreferenceUtil.setString(this,"userName",userName.getText().toString().trim());
                          PreferenceUtil.setString(this,"passWord",passWord.getText().toString().trim());
                          startActivity(new Intent(this, MainActivity.class));
